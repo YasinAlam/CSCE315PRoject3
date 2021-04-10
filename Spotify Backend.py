@@ -1,6 +1,6 @@
 import requests
 #*************************************AUTHORIZATION FOR SPOTIFY API*************************************#
-#Setting Application Details
+#Setting- up Application Details
 CLIENT_ID = '1b60decc28894577a21fbc138bfd5fd8'
 CLIENT_SECRET = 'aca051263ed0473bb4e83a7e08e5e990'
 scopes = 'user-read-private user-read-email'
