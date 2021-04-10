@@ -67,4 +67,32 @@ for i in result['artists']['items']:
 result = requests.get(BASE_URL + 'artists/' + artistIDArray[1] + '/albums', headers=headers)
 result = result.json()
 
-print(result)
+#Parse result and get album Name and ID
+albumNameArray = []
+albumIDArray = []
+for i in result['items']:
+    albumNameArray.append(i['name'])
+    albumIDArray.append(i['id'])
+
+# print(albumNameArray)
+# print(albumIDArray)
+
+#Convert Album ID Array to a string seperated by commas to be passed as a paramater below
+seperator = ','
+albumIDArrayToStr = seperator.join(albumIDArray)
+print(albumIDArrayToStr)
+
+#GET request with proper header to find all songs given albums
+result = requests.get(BASE_URL + 'albums/', headers=headers, params={'ids':albumIDArrayToStr})
+result = result.json()
+
+#Parse result and get track Names and ID's
+trackNameArray = []
+trackIDArray = []
+for i in result["albums"]:
+    for j in i["tracks"]["items"]:
+        trackNameArray.append(j["name"])
+        trackIDArray.append(j["id"])
+
+print(trackNameArray)
+print(trackIDArray)
