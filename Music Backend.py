@@ -40,7 +40,7 @@ artistNameArray = []
 artistIDArray = []
 artistImageArray = []
 artistGenreArray = []
-for i in a['artists']['items']:
+for i in result['artists']['items']:
     if(len(i['images'])!=0):
         artistNameArray.append(i['name'])
         artistIDArray.append(i['id'])
