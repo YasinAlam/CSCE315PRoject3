@@ -1,3 +1,4 @@
+
 import requests
 import datetime
 
@@ -29,4 +30,5 @@ result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n
 result = result.json()
 
 print(result)
+
 
