@@ -1,0 +1,77 @@
+import requests
+
+#*************************************AUTHORIZATION FOR Bandsintown API*************************************#
+#Setting-up Application Details
+APP_ID = '4065c748e821bd17f026e5340fb780d6'
+
+#Set Base URL of all Bandsintown API endpoints
+BASE_URL = 'http://rest.bandsintown.com/'
+
+
+#Inputted Artist name
+artistInput = '5 seconds of summer'
+#*************************************Get Artist info with provided name*************************************#
+result = requests.get(BASE_URL + "artists/"+artistInput, params={'app_id' : APP_ID})
+result = result.json()
+futureEventCount = result["upcoming_event_count"]
+artistImage = result["image_url"]
+
+
+#*************************************Get Artist Events with provided name*************************************#
+pastEvents = requests.get(BASE_URL + "artists/"+artistInput+"/events", params={'app_id' : APP_ID, 'date' : "past"})
+pastEvents = pastEvents.json()
+
+futureEvents = requests.get(BASE_URL + "artists/"+artistInput+"/events", params={'app_id' : APP_ID, 'date' : "upcoming"})
+futureEvents = futureEvents.json()
+
+#Parse result and get all past and future events of artist
+dateArrayPast = []
+descriptionArrayPast = []
+venueArrayPast = [] #{"Venue","City","Region", "Country"}
+titleArrayPast = []
+
+ticketDateArrayFuture = []
+dateArrayFuture = []
+descriptionArrayFuture = []
+venueArrayFuture = [] #{"Venue","City","Region", "Country"}
+titleArrayFuture = []
+ticketURLFuture = []
+
+for i in pastEvents:
+    dateArrayPast.append(i["datetime"][0:10])
+    descriptionArrayPast.append([i["description"]])
+    venueArrayPast.append({"venue" : i["venue"]["name"], "city" : i["venue"]["city"], "region" : i["venue"]["region"],
+                           "country" : i["venue"]["country"]})
+    titleArrayPast.append(i["title"])
+
+for i in futureEvents:
+    dateArrayFuture.append(i["datetime"][0:10])
+    descriptionArrayFuture.append([i["description"]])
+    venueArrayFuture.append({"venue" : i["venue"]["name"], "city" : i["venue"]["city"], "region" : i["venue"]["region"],
+                           "country" : i["venue"]["country"]})
+    titleArrayFuture.append(i["title"])
+    ticketDateArrayFuture.append(i["on_sale_datetime"][0:10])
+
+    found = False
+    for j in i["offers"]:
+        if j["type"] == "Tickets":
+            ticketURLFuture.append(j["url"])
+            found = True
+    if not found:
+        ticketURLFuture.append(None)
+
+#*************************************Printing statements to test code*************************************#
+print("#*************************************Past Events*************************************#")
+for i in range(len(dateArrayPast)):
+    print(("Date: " + dateArrayPast[i]).ljust(20),("Venue Name: " + venueArrayPast[i]["venue"].ljust(65)),
+          ("Venue City:" + venueArrayPast[i]["city"].ljust(20)),("Venue State: " + venueArrayPast[i]["region"].ljust(10)),
+          ("\tVenue Country: " + venueArrayPast[i]["country"]))
+
+print("\n#*************************************Future Events*************************************#")
+for i in range(len(dateArrayFuture)):
+    print(("Date: " + dateArrayFuture[i]).ljust(20), ("Venue Name: " + venueArrayFuture[i]["venue"].ljust(65)),
+          ("Venue City:" + venueArrayFuture[i]["city"].ljust(20)),
+          ("Venue State: " + venueArrayFuture[i]["region"].ljust(10)),
+          ("Venue Country: " + venueArrayFuture[i]["country"]).ljust(30), ("Tickets Sale Time: " +
+                                                                           ticketDateArrayFuture[i]).ljust(40),
+          ("Tickets Sale URL: " + str(ticketURLFuture[i])))
