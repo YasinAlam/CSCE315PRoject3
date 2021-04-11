@@ -33,6 +33,13 @@ class Query:
                 reg = self.get_region(country_)
                 return reg.query_postal_code(zipp_)
 
+"""
+Can use as object or just an engine
+test = Query('us', '77433')
+test.info for detailed info
+test.latitude for latitude, etc
 
-#Can use as object or just an engine
-        
+Alternatively, pass in functions
+zip_engine = Query()
+info = get_info('77433', 'us') 
+"""
