@@ -81,6 +81,21 @@ for cinema in cinemaIDs:
     filmsInCinemas.append((cinema,{"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
                                     "allFilmDates" : allFilmDates}))
 
-# Print Results used for testing
-for i in range(len(cinemaIDs)):
-    print(filmsInCinemas[i],"\n")
+# # Print Results used for testing
+# for i in range(len(cinemaIDs)):
+#     print(filmsInCinemas[i],"\n")
+
+
+#*************************************Get Purchase link given date *************************************#
+purchaseDate = ISO_8601_time[0:10]
+purchaseTime = "19:50"
+purchaseCinema = 10636
+purchaseFilm = 7772
+
+#GET request with proper header for showtimes for every movie
+result = requests.get(BASE_URL + 'purchaseConfirmation/', headers=headers, params={"cinema_id" : purchaseCinema,
+                                                                                   "film_id" : purchaseFilm,
+                                                                                   "date" : purchaseDate,
+                                                                                   "time" : purchaseTime})
+result = result.json()
+purchaseURL = result["url"]
