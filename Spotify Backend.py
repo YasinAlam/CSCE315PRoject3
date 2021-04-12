@@ -31,7 +31,7 @@ headers = {
 BASE_URL = 'https://api.spotify.com/v1/'
 
 #Inputted Artist name
-artistInput = 'Drake'
+artistInput = 'Drake'.lower()
 
 #GET request with proper header for all artists with provided name
 result = requests.get(BASE_URL + 'search/', headers=headers, params={'q' : artistInput,'type' : 'artist'})

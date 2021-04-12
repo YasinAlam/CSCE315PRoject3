@@ -1,4 +1,3 @@
-
 import requests
 import datetime
 
@@ -21,14 +20,67 @@ headers = {
 }
 
 
-#*************************************Get all Movies Playing right now*************************************#
+# *************************************Get all Cinemas nearby*************************************#
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
 
-#GET request with proper header for all artists with provided name
-result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 25})
+#GET request with proper header for all cinemas in your area
+result = requests.get(BASE_URL + 'cinemasNearby/', headers=headers, params={'n' : 25})
 result = result.json()
 
-print(result)
+#Parse result and get Cinema ID's, Distance, Names, Logos, and addresses
+cinemaIDs = []
+cinemaDistances = []
+cinemaNames = []
+cinemaLogos = []
+cinemaAddresses = []
+
+for i in result["cinemas"]:
+    cinemaIDs.append(i["cinema_id"])
+    cinemaNames.append(i["cinema_name"])
+    cinemaDistances.append(i["distance"])
+    cinemaLogos.append(i["logo_url"])
+    cinemaAddresses.append({"address": i["address"], "city": i["city"], "state": i["state"]})
 
 
+#*************************************Get all showtimes for provided cinemas*************************************#
+filmsInCinemas = []
+#Goes through every cinema and adds all information related to that cinema to an array
+for cinema in cinemaIDs:
+    #GET request with proper header for showtimes for every movie
+    result = requests.get(BASE_URL + 'cinemaShowTimes/', headers=headers, params={"cinema_id" : cinema, "date" : ISO_8601_time[0:10]})
+    result = result.json()
+
+    #Parse result and get Film ID's, Names, Times, and Dates
+    filmIDs = []
+    filmNames = []
+    allFilmTimes = []
+    allFilmDates = []
+    for i in result["films"]:
+        # Create temporary arrays to hold individual film times and showdates
+        individualFilmTimes = []
+        individualFilmDates = []
+
+        # Add Film ID's and Names
+        filmIDs.append(i["film_id"])
+        filmNames.append(i["film_name"])
+
+        # Add film timings to a temp array and then append that to an array with all the timings
+        for j in i["showings"]:
+            for k in i["showings"][j]["times"]:
+                individualFilmTimes.append((k["start_time"], k["end_time"]))
+                # print(k["start_time"], k["end_time"])
+        allFilmTimes.append(individualFilmTimes)
+
+        # Add film dates to a temp array and then append that to an array with all the dates
+        for j in i["show_dates"]:
+            individualFilmDates.append(j["date"])
+            # print(j["date"])
+        allFilmDates.append(individualFilmDates)
+
+    filmsInCinemas.append((cinema,{"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
+                                    "allFilmDates" : allFilmDates}))
+
+# Print Results used for testing
+for i in range(len(cinemaIDs)):
+    print(filmsInCinemas[i],"\n")

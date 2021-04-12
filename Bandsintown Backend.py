@@ -9,7 +9,7 @@ BASE_URL = 'http://rest.bandsintown.com/'
 
 
 #Inputted Artist name
-artistInput = '5 seconds of summer'
+artistInput = '5 seconds of summer'.lower()
 #*************************************Get Artist info with provided name*************************************#
 result = requests.get(BASE_URL + "artists/"+artistInput, params={'app_id' : APP_ID})
 result = result.json()
