@@ -41,11 +41,11 @@ for i in result["films"]:
     filmRating.append(i["age_rating"][0]["rating"])
     filmID.append(i["film_id"])
 
-print(filmSynop)
-print(filmName)
-print(releaseDate)
-print(filmRating)
-print(filmID)
+# print(filmSynop)
+# print(filmName)
+# print(releaseDate)
+# print(filmRating)
+# print(filmID)
 
 #*************************************Get ratings*************************************#
 result = requests.get(BASE_URL + 'filmDetails/', headers=headers, params={'n' : 25, "film_id":25})
@@ -60,9 +60,9 @@ movieRating.append(result["review_stars"])
 movieRuntime.append(result["duration_mins"])
 movieGenre.append(result["genres"][0]["genre_name"])
 
-print(movieRating)
-print(movieRuntime)
-print(movieGenre)
+# print(movieRating)
+# print(movieRuntime)
+# print(movieGenre)
 
 
 # *************************************Get all Cinemas nearby*************************************#
@@ -90,10 +90,12 @@ for i in result["cinemas"]:
 
 #*************************************Get all showtimes for provided cinemas*************************************#
 filmsInCinemas = []
+queryDate = '2021-04-12'
+
 #Goes through every cinema and adds all information related to that cinema to an array
 for cinema in cinemaIDs:
     #GET request with proper header for showtimes for every movie
-    result = requests.get(BASE_URL + 'cinemaShowTimes/', headers=headers, params={"cinema_id" : cinema, "date" : ISO_8601_time[0:10]})
+    result = requests.get(BASE_URL + 'cinemaShowTimes/', headers=headers, params={"cinema_id" : 10636, "date" : queryDate})
     result = result.json()
 
     #Parse result and get Film ID's, Names, Times, and Dates
@@ -126,7 +128,7 @@ for cinema in cinemaIDs:
     filmsInCinemas.append((cinema,{"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
                                     "allFilmDates" : allFilmDates}))
 
-# # Print Results used for testing
+# Print Results used for testing
 # for i in range(len(cinemaIDs)):
 #     print(filmsInCinemas[i],"\n")
 
