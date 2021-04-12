@@ -20,6 +20,51 @@ headers = {
 }
 
 
+#*************************************Get all Movies Playing right now*************************************#
+#Base URL
+BASE_URL = "https://api-gate2.movieglu.com/"
+
+#GET request with proper header for all artists with provided name
+result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 25})
+result = result.json()
+
+filmSynop = []
+filmName = []
+releaseDate = []
+filmRating = []
+filmID = []
+
+for i in result["films"]:
+    filmSynop.append(i["synopsis_long"])
+    filmName.append(i["film_name"])
+    releaseDate.append(i["release_dates"][0]["release_date"])
+    filmRating.append(i["age_rating"][0]["rating"])
+    filmID.append(i["film_id"])
+
+print(filmSynop)
+print(filmName)
+print(releaseDate)
+print(filmRating)
+print(filmID)
+
+#*************************************Get ratings*************************************#
+result = requests.get(BASE_URL + 'filmDetails/', headers=headers, params={'n' : 25, "film_id":25})
+result = result.json()
+
+movieRating = []
+movieRuntime = []
+movieGenre = []
+
+
+movieRating.append(result["review_stars"])
+movieRuntime.append(result["duration_mins"])
+movieGenre.append(result["genres"][0]["genre_name"])
+
+print(movieRating)
+print(movieRuntime)
+print(movieGenre)
+
+
 # *************************************Get all Cinemas nearby*************************************#
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
