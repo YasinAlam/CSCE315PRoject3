@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "Godzilla",
+        "year": 2021,
+        "box_office": "$210 million",
+        "rating": "89% of Google Users liked"
+
+    },
+    {
+        "id": 2,
+        "title": "Superman",
+        "year": 2017,
+        "box_office": "$123 million",
+        "rating": "67% of Google Users liked"
+
+    }
+]
