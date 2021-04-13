@@ -2,6 +2,8 @@
 import numpy as np
 import pandas as pd
 import pgeocode as pg
+from flask import Blueprint, jsonify
+location = Blueprint("location", __name__)
 
 class Query:
     #Data
