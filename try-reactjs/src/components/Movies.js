@@ -92,7 +92,7 @@ class Movies extends Component {
                 {PostData.map((postDetail, index) => {
                     return <div>
                         <h2>{postDetail.title}</h2>
-                        <p>Release Date: {postDetail.year}</p>
+                        <p>Release Date: {postDetail.release_date}</p>
                         <p>Runtime: {postDetail.runtime}</p>
                         <p>Genre: {postDetail.genre}</p>
                         <p>Rating: {postDetail.rating}</p>
