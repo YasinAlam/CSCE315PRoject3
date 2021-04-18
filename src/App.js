@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import {Route, BrowserRouter as Router, Link} from "react-router-dom";
-
 import MoviesPage from "./Pages/MoviePage"
 import SongPage from "./Pages/SongPage"
 
-function App() {
+class App extends Component {
+  
+  render(){
     return (
       <Router>
 
@@ -25,7 +26,8 @@ function App() {
         <Route path="/SongPage" component={SongPage} />
 
       </Router>
-    );
+    )
+  }
 }
 
 

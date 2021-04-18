@@ -110,10 +110,10 @@ class Movies extends Component {
                 </Col>
                 <Col>
                 <div>
-                    <h1>Local Theaters</h1>
+                    <h2>Local Theaters</h2>
                     {TheaterData.map((theaterDetail, index) => {
                         return <div>
-                            <h2>{theaterDetail.name}</h2>
+                            <h3>{theaterDetail.name}</h3>
                             <p>Address: {theaterDetail.address}, {theaterDetail.city}, {theaterDetail.state}, {theaterDetail.zip_code} </p>
                             <p>Showtimes: {theaterDetail.showtime_day} at {theaterDetail.showtimes}</p>
                         </div>
@@ -122,10 +122,10 @@ class Movies extends Component {
                 </Col>
                 <Col>
                 <div>
-                    <h1>Top Movies of the Month: </h1>
+                    <h2>Top Movies of the Month: </h2>
                     {PostData.map((postDetail, index) => {
                         return <div>
-                            <h2>{postDetail.title}</h2>
+                            <h3>{postDetail.title}</h3>
                             <p>Release Date: {postDetail.release_date}</p>
                             <p>Runtime: {postDetail.runtime}</p>
                             <p>Genre: {postDetail.genre}</p>

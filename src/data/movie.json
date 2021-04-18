@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "title": "Godzilla",
+        "release_date": "Jan 4, 2021",
+        "box_office": "$210 million",
+        "rating": "89% of Google Users liked",
+        "synopsis": "monster fight monster battle fights",
+        "runtime": "121 minutes",
+        "genre": "action",
+        "poster": "https://posterspy.com/wp-content/uploads/2020/01/Gozilla-Poster1_Joel-Jensen-1500x2000.jpg"
+
+
+    },
+    {
+        "id": 2,
+        "title": "Superman",
+        "release_date": "Jan 4, 2021",
+        "box_office": "$123 million",
+        "rating": "67% of Google Users liked",
+        "synopsis": "monster fight monster battle fights",
+        "runtime": "121 minutes",
+        "genre": "action"
+    }
+]
