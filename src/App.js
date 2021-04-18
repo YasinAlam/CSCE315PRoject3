@@ -3,9 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import {Route, BrowserRouter as Router, Link} from "react-router-dom";
 
-import Movies from './components/Movies'
-import Songs from './components/Songs'
-import ClassClick from './components/ClassClick'
 import MoviesPage from "./Pages/MoviePage"
 import SongPage from "./Pages/SongPage"
 
@@ -17,12 +14,10 @@ function App() {
           <h1>Flicks N Picks</h1>
             <nav>
               <ul>
-                <li>
-                  <Link to="/MoviesPage">MoviesPage</Link>
-                </li>
-                <li>
-                  <Link to="/SongPage">SongPage</Link>
-                </li>
+                <Link to="/MoviesPage" className="btn btn-primary">Movie Search</Link>
+              </ul>
+              <ul>
+                <Link to="/SongPage" className="btn btn-primary">Song Search</Link>
               </ul>
             </nav>
         </div>

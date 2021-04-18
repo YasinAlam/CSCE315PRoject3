@@ -83,23 +83,30 @@ class Movies extends Component {
       const {myFullName} = this.state
     return (
       <div>
-        <h1>Flicks and Picks</h1>
         <Container>
             <Row>
                 <Col>
                 <div>
-                <h1>Top Movies of the Month: </h1>
-                {PostData.map((postDetail, index) => {
-                    return <div>
-                        <h2>{postDetail.title}</h2>
-                        <p>Release Date: {postDetail.release_date}</p>
-                        <p>Runtime: {postDetail.runtime}</p>
-                        <p>Genre: {postDetail.genre}</p>
-                        <p>Rating: {postDetail.rating}</p>
-                        <p>Synopsis: {postDetail.synopsis}</p>
-                    </div>
-                })}
-                </div>
+                 <p>Selected Movie: {myFullName}</p>
+                 <form onSubmit={this.handleSubmit}>
+                    <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
+
+                    <p><button>Search</button></p>
+                    <p><button onClick={this.handleClearClick}>Clear</button></p>
+                 </form>
+                 
+                 </div>
+                 {PostData.map((postDetail, index) => {
+                        return <div>
+                            <img src= {postDetail.poster} height = {320} width = {270}/>
+                        </div>
+                        
+                    })}
+                 <p>Selected movie Release Date: </p>
+                 <p>Selected movie Runtime: </p>
+                 <p>Selected movie Genre: </p>
+                 <p>Selected movie Rating: </p>
+                 <p>Selected movie Synopsis: </p>
                 </Col>
                 <Col>
                 <div>
@@ -113,7 +120,23 @@ class Movies extends Component {
                     })}
                 </div>
                 </Col>
+                <Col>
+                <div>
+                    <h1>Top Movies of the Month: </h1>
+                    {PostData.map((postDetail, index) => {
+                        return <div>
+                            <h2>{postDetail.title}</h2>
+                            <p>Release Date: {postDetail.release_date}</p>
+                            <p>Runtime: {postDetail.runtime}</p>
+                            <p>Genre: {postDetail.genre}</p>
+                            <p>Rating: {postDetail.rating}</p>
+                            <p>Synopsis: {postDetail.synopsis}</p>
+                        </div>
+                    })}
+                    </div>
+                </Col>
             </Row>
+            
 </Container>
         {/* <Container>
             <Row>
@@ -122,16 +145,6 @@ class Movies extends Component {
                 </Col>
             </Row>
         </Container> */}
-        
-        
-        <p>Selected Movie: {myFullName}</p>
-        <form onSubmit={this.handleSubmit}>
-            <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
-        
-          <p><button>Search</button></p>
-          <p><button onClick={this.handleClearClick}>Clear</button></p>
-          <p><button>Search For Song</button></p>
-        </form>
       </div>
     )
   }

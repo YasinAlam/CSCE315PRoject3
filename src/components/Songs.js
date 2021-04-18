@@ -79,14 +79,12 @@ class Songs extends Component {
       const {myFullName} = this.state
     return (
       <div>
-        <h1>Flicks and Picks</h1>
         <p>Selected Song: {myFullName}</p>
         <form onSubmit={this.handleSubmit}>
             <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
         
           <p><button>Search</button></p>
           <p><button onClick={this.handleClearClick}>Clear</button></p>
-          <p><button>Search For Movie</button></p>
         </form>
       </div>
     )
