@@ -20,11 +20,11 @@ headers = {
     'geolocation' :	'-22.0;14.0',
     'device-datetime' : ISO_8601_time
 }
+#Base URL
+BASE_URL = "https://api-gate2.movieglu.com/"
 
 
 # #*************************************Get all Movies Playing right now*************************************#
-# #Base URL
-# BASE_URL = "https://api-gate2.movieglu.com/"
 #
 # #GET request with proper header for all artists with provided name
 # result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 25})

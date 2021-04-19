@@ -1,5 +1,6 @@
 import requests
 from flask import Blueprint, jsonify
+import json
 bandsintown = Blueprint("bandsintown", __name__)
 
 
@@ -13,17 +14,19 @@ BASE_URL = 'http://rest.bandsintown.com/'
 
 #*************************************Get Artist info with provided name*************************************#
 #Inputted Artist name
-# artistInput = '5 seconds of summer'.lower()
 @bandsintown.route('/api/bandsintown/<artistInput>')
 def getArtistInfo(artistInput = None):
     result = requests.get(BASE_URL + "artists/"+artistInput, params={'app_id' : APP_ID})
     result = result.json()
     futureEventCount = result["upcoming_event_count"]
     artistImage = result["image_url"]
-    return jsonify({'futureEventCount': futureEventCount, "artistImage" : artistImage})
+
+    result = {'futureEventCount': futureEventCount, "artistImage" : artistImage}
+    writeToFile(result,"artistInfo")
+    return jsonify(result)
 
 #*************************************Get Past Artist Events with provided name*************************************#
-@bandsintown.route('/api/bandsintown/<artistInput>/events/Past')
+@bandsintown.route('/api/bandsintown/<artistInput>/events/past')
 def getPastArtistEvents(artistInput = None):
     pastEvents = requests.get(BASE_URL + "artists/"+artistInput+"/events", params={'app_id' : APP_ID, 'date' : "past"})
     pastEvents = pastEvents.json()
@@ -41,8 +44,10 @@ def getPastArtistEvents(artistInput = None):
                                "country" : i["venue"]["country"]})
         titleArrayPast.append(i["title"])
 
-    return jsonify({"dateArrayPast" : dateArrayPast, "descriptionArrayPast": descriptionArrayPast,
-                    "venueArrayPast" : venueArrayPast, "titleArrayPast" : titleArrayPast })
+    result = {"dateArrayPast" : dateArrayPast, "descriptionArrayPast": descriptionArrayPast,
+                    "venueArrayPast" : venueArrayPast, "titleArrayPast" : titleArrayPast }
+    writeToFile(result,"pastEvents")
+    return jsonify(result)
 
 
 #*************************************Get Future Artist Events with provided name*************************************#
@@ -76,11 +81,14 @@ def getFutureArtistEvents(artistInput = None):
                 found = True
         if not found:
             ticketURLFuture.append(None)
-    print(ticketDateArrayFuture)
+    # print(ticketDateArrayFuture)
 
-    return jsonify({"dateArrayFuture": dateArrayFuture, "descriptionArrayFuture": descriptionArrayFuture,
+
+    result = {"dateArrayFuture": dateArrayFuture, "descriptionArrayFuture": descriptionArrayFuture,
                     "venueArrayFuture": venueArrayFuture, "titleArrayFuture": titleArrayFuture,
-                    "ticketDateArrayFuture" : ticketDateArrayFuture, "ticketURLFuture" : ticketURLFuture})
+                    "ticketDateArrayFuture" : ticketDateArrayFuture, "ticketURLFuture" : ticketURLFuture}
+    writeToFile(result, "futureEvents")
+    return jsonify(result)
 
 
 # #*************************************Printing statements to test code*************************************#
@@ -98,3 +106,10 @@ def getFutureArtistEvents(artistInput = None):
 #           ("Venue Country: " + venueArrayFuture[i]["country"]).ljust(30), ("Tickets Sale Time: " +
 #                                                                            ticketDateArrayFuture[i]).ljust(40),
 #           ("Tickets Sale URL: " + str(ticketURLFuture[i])))
+
+
+def writeToFile(result,name):
+    # print(result,"hello")
+    name = "../src/data/"+name+".json"
+    with open(name, 'w') as outfile:
+        json.dump(result, outfile)

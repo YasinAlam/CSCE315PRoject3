@@ -4,18 +4,24 @@ import Movies from './components/Movies'
 import Songs from './components/Songs'
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
-
+  //Music API Testing
   useEffect(() => {
-    fetch('/api/bandsintown/5 seconds of summer/events/future').then(res => res.json()).then(data => {
-      setCurrentTime(data.ticketDateArrayFuture);
-    });
+    fetch('/api/bandsintown/5 seconds of summer/events/future');
   }, []);
+  useEffect(() => {
+    fetch('/api/bandsintown/5 seconds of summer/events/past');
+  }, []);
+  useEffect(() => {
+    fetch('/api/bandsintown/5 seconds of summer');
+  }, []);
+
+  //Movie API Testing
+
 
 return (
       <div className='App'>
         <Movies />
-        <p>The current time is {currentTime}.</p>
+        <p>The current time is {3}.</p>
         <Songs />
       </div>
     );
