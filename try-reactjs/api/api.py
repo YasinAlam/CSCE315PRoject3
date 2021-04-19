@@ -1,7 +1,7 @@
 import time
 from flask import Flask, jsonify
 from bandsintownBackend import bandsintown
-# from location import location
+from location import location
 from movies import movieglu
 from spotifyBackend import spotify
 
