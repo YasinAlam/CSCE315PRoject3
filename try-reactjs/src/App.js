@@ -4,7 +4,7 @@ import Movies from './components/Movies'
 import Songs from './components/Songs'
 
 function App() {
-  //Music API Testing
+  //Bandsintown API Testing
   useEffect(() => {
     fetch('/api/bandsintown/5 seconds of summer/events/future');
   }, []);
@@ -15,8 +15,15 @@ function App() {
     fetch('/api/bandsintown/5 seconds of summer');
   }, []);
 
-  //Movie API Testing
+  //Spotify API Testing
+  useEffect(() => {
+    fetch('/api/spotify/search/Drake');
+  }, []);
+  useEffect(() => {
+    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
+  }, []);
 
+  //MovieGlu API Testing
 
 return (
       <div className='App'>

@@ -1,5 +1,6 @@
 import requests
 from flask import Blueprint, jsonify
+import json
 spotify = Blueprint("spotify", __name__)
 
 #*************************************AUTHORIZATION FOR SPOTIFY API*************************************#
@@ -35,7 +36,7 @@ BASE_URL = 'https://api.spotify.com/v1/'
 @spotify.route('/api/spotify/search/<artistInput>')
 def getAllArtistsWithName(artistInput = None):
     #Inputted Artist name
-    artistInput = 'Drake'.lower()
+    # artistInput = 'Drake'.lower()
 
     #GET request with proper header for all artists with provided name
     result = requests.get(BASE_URL + 'search/', headers=headers, params={'q' : artistInput,'type' : 'artist'})
@@ -68,8 +69,10 @@ def getAllArtistsWithName(artistInput = None):
     # # print(artistIDArray)
     # # print(artistImageArray)
     # # print(artistGenreArray)
-    return jsonify({"artistNameArray" : artistNameArray, "artistIDArray" : artistIDArray,
-                    "artistImageArray" : artistImageArray, "artistGenreArray" : artistGenreArray})
+    result = {"artistNameArray" : artistNameArray, "artistIDArray" : artistIDArray,
+                    "artistImageArray" : artistImageArray, "artistGenreArray" : artistGenreArray}
+    writeToFile(result,"artistsQuery")
+    return jsonify(result)
 
 
 #*************************************Get all Albums related to chosen Artist*************************************#
@@ -142,4 +145,14 @@ def getAllTracksWithID(artistID = None):
     #     print(("Track Name: " + trackNameArray[i]).ljust(60),("\tPopularity Score: " + str(trackPopularityArray[i])).center(0),
     #           ("\tArtist: " + chosenArtistName).rjust(0))
 
-    return jsonify({"trackNameArray" : trackNameArray, "trackPopularityArray" : trackPopularityArray})
+
+    result = {"trackNameArray" : trackNameArray, "trackPopularityArray" : trackPopularityArray}
+    writeToFile(result,"allTracks")
+    return jsonify(result)
+
+
+def writeToFile(result,name):
+    # print(result,"hello")
+    name = "../src/data/"+name+".json"
+    with open(name, 'w') as outfile:
+        json.dump(result, outfile)
