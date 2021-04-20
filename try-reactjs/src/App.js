@@ -24,9 +24,9 @@ function App() {
 //  }, []);
 
 //  //MovieGlu API Testing
-//  useEffect(() => {
-//    fetch('/api/movieglu/nowplaying');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/movieglu/nowplaying');
+  }, []);
 //  useEffect(() => {
 //    fetch('/api/movieglu/cinemas/2021-04-19');
 //  }, []);
@@ -34,10 +34,10 @@ function App() {
 //    fetch('/api/movieglu/films/purchase/23/23/23/23');
 //  }, []);
 
-    //Location API Testing
-  useEffect(() => {
-    fetch('/api/location/77375');
-  }, []);
+//    //Location API Testing
+//  useEffect(() => {
+//    fetch('/api/location/77375');
+//  }, []);
 return (
       <div className='App'>
         <Movies />

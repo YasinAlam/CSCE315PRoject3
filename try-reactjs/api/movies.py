@@ -12,6 +12,7 @@ APP_ID = '4065c748e821bd17f026e5340fb780d6'
 #Create Authorization Header
 time = datetime.datetime.now()
 ISO_8601_time = time.isoformat()
+#Sandbox Environment
 headers = {
     'client': 'TEXA_1',
     'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
@@ -21,6 +22,18 @@ headers = {
     'geolocation' :	'-22.0;14.0',
     'device-datetime' : ISO_8601_time
 }
+
+#Normal Environment
+# headers = {
+#     'client': 'TEXA_1',
+#     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
+#     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
+#     'territory' : 'XX',
+#     'api-version' :	'v200',
+#     'geolocation' :	'30.0739,-95.6201',
+#     'device-datetime' : ISO_8601_time
+# }
+
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
 

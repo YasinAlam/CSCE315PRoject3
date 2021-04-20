@@ -1,47 +1,52 @@
 #Packages
 import numpy as np
 import pandas as pd
-import pgeocode as pg
+import json
 from flask import Blueprint, jsonify
 location = Blueprint("location", __name__)
+import pgeocode as pg
 
-class Query:
-    #Data
-        def __init__(self, country = None, zipp = None): #Use shell = true to just use functions, else create object
-            if(country and zipp == None):
-                self.shell = True
-            else:
-                self.shell = False
-            self.country = country
-            self.zipp = zipp
-            self.region = None
-            self.info = None
-            if(not self.shell):
-                self.region = self.get_region(country)
-                self.info = self.get_info(zipp, country)
-                self.latitude = self.info.latitude
-                self.longitude = self.info.longitude
 
-        def get_region(self, country_ = None): #Get repo of country zips
-            if(self.shell):
-                return pg.Nominatim(country_)
-            else:
-                return pg.Nominatim(self.country)
-            
-        def get_info(self, zipp_ = None, country_ = None): # Get dataframe of info for a zip
-            if(not self.shell):
-                return self.region.query_postal_code(zipp_)
-            else:
-                reg = self.get_region(country_)
-                return reg.query_postal_code(zipp_)
+def get_region(country_ = 'us'):
+    return pg.Nominatim(country_)
+
+@location.route('/api/location/<zipp>')
+def get_info(zipp, country_ = 'us', full_info=False): # Get dataframe of info for a zip
+    reg = get_region(country_)
+    info = reg.query_postal_code(zipp) #df of all information
+    if(full_info == True):
+            return jsonify(info.to_dict())
+    else:
+            coord = {"latitude":info.latitude,"longitude":info.longitude}
+            writeToFile(coord,"Location")
+            return jsonify(coord)
+
+
+def writeToFile(result,name):
+    # print(result,"hello")
+    name = "../src/data/"+name+".json"
+    with open(name, 'w') as outfile:
+        json.dump(result, outfile)
 
 """
-Can use as object or just an engine
-test = Query('us', '77433')
-test.info for detailed info
-test.latitude for latitude, etc
-
-Alternatively, pass in functions
-zip_engine = Query()
-info = get_info('77433', 'us') 
+Returns dictionary of full info or just latitude or longitude.
+Use with get_info(<'zip code'>, <'country'>,<full_info = T/F>)
+examples:
+get_info('77433', full_info=True)
+Output:
+{'postal_code': '77433',
+ 'country_code': 'US',
+ 'place_name': 'Cypress',
+ 'state_name': 'Texas',
+ 'state_code': 'TX',
+ 'county_name': 'Harris',
+ 'county_code': 201.0,
+ 'community_name': nan,
+ 'community_code': nan,
+ 'latitude': 29.8836,
+ 'longitude': -95.7025,
+ 'accuracy': 4.0}
+get_info('77433', full_info=False)
+Output:
+{'latitude': 29.8836, 'longitude': -95.7025}
 """

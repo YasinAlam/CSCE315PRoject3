@@ -7,7 +7,7 @@ from spotifyBackend import spotify
 
 app = Flask(__name__)
 app.register_blueprint(bandsintown, url_prefix = "")
-# app.register_blueprint(location, url_prefix = "")
+app.register_blueprint(location, url_prefix = "")
 app.register_blueprint(movieglu, url_prefix = "")
 app.register_blueprint(spotify, url_prefix = "")
 
