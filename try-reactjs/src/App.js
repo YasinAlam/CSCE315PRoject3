@@ -24,15 +24,18 @@ function App() {
 //  }, []);
 
 //  //MovieGlu API Testing
-  useEffect(() => {
-    fetch('/api/movieglu/nowplaying');
-  }, []);
+//  useEffect(() => {
+//    fetch('/api/movieglu/nowplaying');
+//  }, []);
 //  useEffect(() => {
 //    fetch('/api/movieglu/cinemas/2021-04-19');
 //  }, []);
 //  useEffect(() => {
 //    fetch('/api/movieglu/films/purchase/23/23/23/23');
 //  }, []);
+  useEffect(() => {
+    fetch('/api/movieglu/updateLocation/3/2');
+  }, []);
 
 //    //Location API Testing
 //  useEffect(() => {

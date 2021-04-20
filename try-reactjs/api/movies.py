@@ -173,6 +173,36 @@ def getPurchaseLink(date,time,cinemaID,filmID):
     return jsonify(result)
 
 
+#*************************************Get Purchase link given date *************************************#
+@movieglu.route('/api/movieglu/updateLocation/<lat>/<longi>')
+def updateHeaders(lat, longi):
+    # Create Authorization Header
+    time = datetime.datetime.now()
+    ISO_8601_time = time.isoformat()
+    # Sandbox Environment
+    headers = {
+        'client': 'TEXA_1',
+        'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+        'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+        'territory': 'XX',
+        'api-version': 'v200',
+        'geolocation': '-22.0;14.0',
+        'device-datetime': ISO_8601_time
+    }
+
+    location = lat + "," + longi
+    # Normal Environment
+    # headers = {
+    #     'client': 'TEXA_1',
+    #     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
+    #     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
+    #     'territory' : 'XX',
+    #     'api-version' :	'v200',
+    #     'geolocation' :	location,
+    #     'device-datetime' : ISO_8601_time
+    # }
+    return jsonify({"Latitude" : lat, "Longitude" : longi})
+
 def writeToFile(result,name):
     # print(result,"hello")
     name = "../src/data/"+name+".json"
