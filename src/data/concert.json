@@ -8,9 +8,9 @@
         "state": "Texas",
         "showtime_day": "04/14/21",
         "showtimes": [ 
-            "10:15am",
-            "12:30pm",
-            "2:45pm",
+            "10:15am ",
+            "12:30pm ",
+            "2:45pm ",
             "5:00pm"
         ]
 
@@ -25,9 +25,7 @@
         "showtime_day": "04/14/21",
         "showtimes": [ 
             "10:15am",
-            "12:30pm",
-            "2:45pm",
-            "5:00pm"
+            "12:30pm"
         ]
 
 
