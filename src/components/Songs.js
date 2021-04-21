@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { Container } from 'react-bootstrap';
+import SongData from '../data/song.json';
+import ConcertData from '../data/concert.json';
  
 class MyInputBlock extends Component {
     constructor(props){
@@ -83,7 +87,7 @@ class Songs extends Component {
             <Row>
                 <Col>
                 <div>
-                 <p>Selected Movie: {myFullName}</p>
+                 <p>Selected Song: {myFullName}</p>
                  <form onSubmit={this.handleSubmit}>
                     <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
 
@@ -92,41 +96,37 @@ class Songs extends Component {
                  </form>
                  
                  </div>
-                 {PostData.map((postDetail, index) => {
-                        return <div>
-                            <img src= {postDetail.poster} height = {320} width = {270}/>
-                        </div>
-                        
-                    })}
-                 <p>Selected movie Release Date: </p>
-                 <p>Selected movie Runtime: </p>
-                 <p>Selected movie Genre: </p>
-                 <p>Selected movie Rating: </p>
-                 <p>Selected movie Synopsis: </p>
+
+                 <p>Selected song Release Date: </p>
+                 <p>Selected song Artist: </p>
+                 <p>Selected song Monthly Listeners: </p>
+                 <p>Selected song Length: </p>
+                 <p>Selected song Genre: </p>
                 </Col>
                 <Col>
                 <div>
-                    <h2>Local Theaters</h2>
-                    {TheaterData.map((theaterDetail, index) => {
+                    <h2>Local Concerts</h2>
+                    {ConcertData.map((concertDetail, index) => {
                         return <div>
-                            <h3>{theaterDetail.name}</h3>
-                            <p>Address: {theaterDetail.address}, {theaterDetail.city}, {theaterDetail.state}, {theaterDetail.zip_code} </p>
-                            <p>Showtimes: {theaterDetail.showtime_day} at {theaterDetail.showtimes}</p>
+                            <h3>{concertDetail.name}</h3>
+                            <p>Address: {concertDetail.address}, {concertDetail.city}, {concertDetail.state}, {concertDetail.zip_code} </p>
+                            <p>Showtimes: {concertDetail.showtime_day} at {concertDetail.showtimes}</p>
                         </div>
                     })}
                 </div>
                 </Col>
                 <Col>
                 <div>
-                    <h2>Top Movies of the Month: </h2>
-                    {PostData.map((postDetail, index) => {
+                    <h2>Top Songs of the Month: </h2>
+                    {SongData.map((songDetail, index) => {
                         return <div>
-                            <h3>{postDetail.title}</h3>
-                            <p>Release Date: {postDetail.release_date}</p>
-                            <p>Runtime: {postDetail.runtime}</p>
-                            <p>Genre: {postDetail.genre}</p>
-                            <p>Rating: {postDetail.rating}</p>
-                            <p>Synopsis: {postDetail.synopsis}</p>
+                            <h3>{songDetail.title}</h3>
+                            <img src= {songDetail.poster} height = {270} width = {270}/>
+                            <p>Release Date: {songDetail.release_date}</p>
+                            <p>Artist: {songDetail.artist}</p>
+                            <p>Monthly Listeners: {songDetail.monthly_listeners}</p>
+                            <p>Length: {songDetail.length}</p>
+                            <p>Genre: {songDetail.genre}</p>
                         </div>
                     })}
                     </div>

@@ -96,12 +96,6 @@ class Movies extends Component {
                  </form>
                  
                  </div>
-                 {PostData.map((postDetail, index) => {
-                        return <div>
-                            <img src= {postDetail.poster} height = {320} width = {270}/>
-                        </div>
-                        
-                    })}
                  <p>Selected movie Release Date: </p>
                  <p>Selected movie Runtime: </p>
                  <p>Selected movie Genre: </p>
@@ -126,6 +120,7 @@ class Movies extends Component {
                     {PostData.map((postDetail, index) => {
                         return <div>
                             <h3>{postDetail.title}</h3>
+                            <img src= {postDetail.poster} height = {320} width = {270}/>
                             <p>Release Date: {postDetail.release_date}</p>
                             <p>Runtime: {postDetail.runtime}</p>
                             <p>Genre: {postDetail.genre}</p>
