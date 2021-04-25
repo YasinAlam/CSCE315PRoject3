@@ -19,9 +19,9 @@ function App() {
 //  useEffect(() => {
 //    fetch('/api/spotify/search/Drake');
 //  }, []);
-//  useEffect(() => {
-//    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
+  }, []);
 
 //  //MovieGlu API Testing
 //  useEffect(() => {
@@ -33,9 +33,9 @@ function App() {
 //  useEffect(() => {
 //    fetch('/api/movieglu/films/purchase/23/23/23/23');
 //  }, []);
-  useEffect(() => {
-    fetch('/api/movieglu/updateLocation/3/2');
-  }, []);
+//  useEffect(() => {
+//    fetch('/api/movieglu/updateLocation/3/2');
+//  }, []);
 
 //    //Location API Testing
 //  useEffect(() => {

@@ -135,9 +135,15 @@ def getAllTracksWithID(artistID = None):
 
     #Parse result and get popularity of each track
     trackPopularityArray = []
+    trackLength = []
+    trackReleaseDate = []
     for i in trackResult:
         for j in i["tracks"]:
             trackPopularityArray.append(j["popularity"])
+            minutes = int(j["duration_ms"] / 1000 / 60)
+            seconds = int(j["duration_ms"] / 1000 % 60)
+            trackLength.append(str(minutes)+":"+str(seconds))
+            trackReleaseDate.append(j["album"]["release_date"])
 
     # print(trackPopularityArray)
 
@@ -146,7 +152,8 @@ def getAllTracksWithID(artistID = None):
     #           ("\tArtist: " + chosenArtistName).rjust(0))
 
 
-    result = {"trackNameArray" : trackNameArray, "trackPopularityArray" : trackPopularityArray}
+    result = {"trackNameArray" : trackNameArray, "trackPopularityArray" : trackPopularityArray,
+              "trackLength" : trackLength, "trackReleaseDate" : trackReleaseDate}
     writeToFile(result,"allTracks")
     return jsonify(result)
 
