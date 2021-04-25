@@ -19,16 +19,19 @@ function App() {
 //  useEffect(() => {
 //    fetch('/api/spotify/search/Drake');
 //  }, []);
-  useEffect(() => {
-    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
-  }, []);
+//  useEffect(() => {
+//    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
+//  }, []);
 
 //  //MovieGlu API Testing
 //  useEffect(() => {
 //    fetch('/api/movieglu/nowplaying');
 //  }, []);
 //  useEffect(() => {
-//    fetch('/api/movieglu/cinemas/2021-04-19');
+//    fetch('/api/movieglu/updateLocation/30.0739/-95.6201');
+//  }, []);
+//  useEffect(() => {
+//    fetch('/api/movieglu/cinemas/2021-04-25');
 //  }, []);
 //  useEffect(() => {
 //    fetch('/api/movieglu/films/purchase/23/23/23/23');

@@ -13,26 +13,26 @@ APP_ID = '4065c748e821bd17f026e5340fb780d6'
 time = datetime.datetime.now()
 ISO_8601_time = time.isoformat()
 #Sandbox Environment
-headers = {
-    'client': 'TEXA_1',
-    'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-    'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-    'territory' : 'XX',
-    'api-version' :	'v200',
-    'geolocation' :	'-22.0;14.0',
-    'device-datetime' : ISO_8601_time
-}
-
-#Normal Environment
 # headers = {
 #     'client': 'TEXA_1',
-#     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
-#     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
+#     'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+#     'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
 #     'territory' : 'XX',
 #     'api-version' :	'v200',
-#     'geolocation' :	'30.0739,-95.6201',
+#     'geolocation' :	'-22.0;14.0',
 #     'device-datetime' : ISO_8601_time
 # }
+
+# Normal Environment
+headers = {
+    'client': 'TEXA_1',
+    'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
+    'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
+    'territory' : 'US',
+    'api-version' :	'v200',
+    'geolocation' :	'',
+    'device-datetime' : ISO_8601_time
+}
 
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
@@ -176,31 +176,32 @@ def getPurchaseLink(date,time,cinemaID,filmID):
 #*************************************Get Purchase link given date *************************************#
 @movieglu.route('/api/movieglu/updateLocation/<lat>/<longi>')
 def updateHeaders(lat, longi):
+    global headers
     # Create Authorization Header
     time = datetime.datetime.now()
     ISO_8601_time = time.isoformat()
     # Sandbox Environment
-    headers = {
-        'client': 'TEXA_1',
-        'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-        'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-        'territory': 'XX',
-        'api-version': 'v200',
-        'geolocation': '-22.0;14.0',
-        'device-datetime': ISO_8601_time
-    }
-
-    location = lat + "," + longi
-    # Normal Environment
     # headers = {
     #     'client': 'TEXA_1',
-    #     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
-    #     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
-    #     'territory' : 'XX',
-    #     'api-version' :	'v200',
-    #     'geolocation' :	location,
-    #     'device-datetime' : ISO_8601_time
+    #     'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+    #     'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+    #     'territory': 'XX',
+    #     'api-version': 'v200',
+    #     'geolocation': '-22.0;14.0',
+    #     'device-datetime': ISO_8601_time
     # }
+
+    location = lat + ";" + longi
+    # Normal Environment
+    headers = {
+        'client': 'TEXA_1',
+        'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
+        'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
+        'territory' : 'US',
+        'api-version' :	'v200',
+        'geolocation' :	location,
+        'device-datetime' : ISO_8601_time
+    }
     return jsonify({"Latitude" : lat, "Longitude" : longi})
 
 def writeToFile(result,name):
