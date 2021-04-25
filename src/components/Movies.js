@@ -1,5 +1,9 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import PostData from '../data/movie.json';
+import TheaterData from '../data/theater.json';
  
 class MyInputBlock extends Component {
     constructor(props){
@@ -79,15 +83,63 @@ class Movies extends Component {
       const {myFullName} = this.state
     return (
       <div>
-        <h1>Flicks and Picks</h1>
-        <p>Selected Movie: {myFullName}</p>
-        <form onSubmit={this.handleSubmit}>
-            <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
-        
-          <p><button>Search</button></p>
-          <p><button onClick={this.handleClearClick}>Clear</button></p>
-          <p><button>Search For Song</button></p>
-        </form>
+        <Container>
+            <Row>
+                <Col>
+                <div>
+                 <p>Selected Movie: {myFullName}</p>
+                 <form onSubmit={this.handleSubmit}>
+                    <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
+
+                    <p><button>Search</button></p>
+                    <p><button onClick={this.handleClearClick}>Clear</button></p>
+                 </form>
+                 
+                 </div>
+                 <p>Selected movie Release Date: </p>
+                 <p>Selected movie Runtime: </p>
+                 <p>Selected movie Genre: </p>
+                 <p>Selected movie Rating: </p>
+                 <p>Selected movie Synopsis: </p>
+                </Col>
+                <Col>
+                <div>
+                    <h2>Local Theaters</h2>
+                    {TheaterData.map((theaterDetail, index) => {
+                        return <div>
+                            <h3>{theaterDetail.name}</h3>
+                            <p>Address: {theaterDetail.address}, {theaterDetail.city}, {theaterDetail.state}, {theaterDetail.zip_code} </p>
+                            <p>Showtimes: {theaterDetail.showtime_day} at {theaterDetail.showtimes}</p>
+                        </div>
+                    })}
+                </div>
+                </Col>
+                <Col>
+                <div>
+                    <h2>Top Movies of the Month: </h2>
+                    {PostData.map((postDetail, index) => {
+                        return <div>
+                            <h3>{postDetail.title}</h3>
+                            <img src= {postDetail.poster} height = {320} width = {270}/>
+                            <p>Release Date: {postDetail.release_date}</p>
+                            <p>Runtime: {postDetail.runtime}</p>
+                            <p>Genre: {postDetail.genre}</p>
+                            <p>Rating: {postDetail.rating}</p>
+                            <p>Synopsis: {postDetail.synopsis}</p>
+                        </div>
+                    })}
+                    </div>
+                </Col>
+            </Row>
+            
+</Container>
+        {/* <Container>
+            <Row>
+                <Col>
+                
+                </Col>
+            </Row>
+        </Container> */}
       </div>
     )
   }
