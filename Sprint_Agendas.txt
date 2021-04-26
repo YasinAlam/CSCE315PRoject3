@@ -1,0 +1,61 @@
+Meeting 1 
+Date: 4 April 2021
+Agenda: 
+Discuss necessary parts of the code
+Plan out implementation and routing
+Verify access to all APIs
+Agree on guidelines for github use
+Create branches initial files
+Discuss distribution of tasks and who works on what part
+Time: 14 minutes
+
+Meeting 2
+Date: 6 April 2021
+Agenda:
+Status update on code
+Verification that progress is being made on parts
+Ask for necessary dependencies
+Merge branches that need to be merged
+Time: 8 minutes
+
+Meeting 3
+Date: 11 April 2021
+Agenda:
+Make sure all code is finished and ready to go
+Push alpha release on github
+Ask what tasks need to be done next sprint
+Review sprint one and see where we could improve
+Ask if anyone needs anything
+
+Scrum Meetings 2
+Meeting 1 
+Date: 18 April 2021
+Agenda: 
+Discuss progress of GUI
+Plan out connecting backend and frontend in better manner
+Obtain deadline to finish backend
+Discuss branching
+Discuss better places to host website
+Time: 7 Minutes
+Meeting 2
+Date: 19 April 2021
+Agenda:
+Status update on code
+Discuss progress GUI
+Decide whether backend is done
+Look for hosting sites
+Discuss User Studies and how to set it up
+Time: 10 Minutes
+Meeting 3
+ Date: 25 April 2021
+Agenda:
+Discuss user studies
+Discuss assigning people based on frontend
+Backend wrap up
+Create beta release
+Discuss where to host website besides current host
+Time: 14 Minutes
+Planned Meetings
+Meeting 1: Monday, April 26th
+Meeting 2: Wednesday, April 28th
+Meeting 3: Saturday, April 30th
