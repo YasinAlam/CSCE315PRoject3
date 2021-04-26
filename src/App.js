@@ -7,9 +7,9 @@ import SongPage from "./Pages/SongPage"
 
 function App() {
 //  //Bandsintown API Testing
-//  useEffect(() => {
-//    fetch('/api/bandsintown/5 seconds of summer/events/future');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/bandsintown/5 seconds of summer/events/future');
+  }, []);
 //  useEffect(() => {
 //    fetch('/api/bandsintown/5 seconds of summer/events/past');
 //  }, []);
