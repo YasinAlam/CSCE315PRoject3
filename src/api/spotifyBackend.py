@@ -160,6 +160,6 @@ def getAllTracksWithID(artistID = None):
 
 def writeToFile(result,name):
     # print(result,"hello")
-    name = "../src/data/"+name+".json"
+    name = "../data/"+name+".json"
     with open(name, 'w') as outfile:
         json.dump(result, outfile)

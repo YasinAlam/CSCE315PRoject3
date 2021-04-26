@@ -24,7 +24,7 @@ def get_info(zipp, country_ = 'us', full_info=False): # Get dataframe of info fo
 
 def writeToFile(result,name):
     # print(result,"hello")
-    name = "../src/data/"+name+".json"
+    name = "../data/"+name+".json"
     with open(name, 'w') as outfile:
         json.dump(result, outfile)
 
