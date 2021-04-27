@@ -28,9 +28,12 @@ class MyInputBlock extends Component {
     render() {
         return (
             <div>
-          <p><input ref={this.setTextInputRef} type='text' placeholder='Movie'  name={this.props.inputFullName} onChange={this.handleChange}/></p>
+          <p><input ref={this.setTextInputRef} type='text' placeholder='Zip Code'  name={this.props.inputLocation} onChange={this.handleChange}/></p>
           
-          </div>
+
+            <p><input ref={this.setTextInputRef} type='text' placeholder='Movie'  name={this.props.inputMovie} onChange={this.handleChange}/></p>
+            
+            </div>
       )
     }
 }
@@ -39,19 +42,19 @@ class Movies extends Component {
     constructor(props){
         super(props)
         this.state = {
-            myFullName: '',
-            myContent: '',
+            location: '',
+            movie: '',
             email: ''
         }
-        this.inputFullNameRef = React.createRef()
-        this.inputEmailRef = React.createRef()
+        this.inputLocationRef = React.createRef()
+        this.inputMovieRef = React.createRef()
+
     }
 
 
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
-        // console.log(this.inputFullNameRef.current.value)
         console.log("Final data is", data)
     }
 
@@ -71,26 +74,32 @@ class Movies extends Component {
     }
     handleClearClick = (event) => {
         event.preventDefault()
-            this.inputFullNameRef.current.value = ''
+            this.inputLocationRef.current.value = ''
             this.setState({
-                myFullName: ''
+                location: ''
+            })
+            this.inputMovieRef.current.value = ''
+            this.setState({
+                movie: ''
             })
     }
     // componentDidMount(){
-    //     this.inputFullNameRef.current.focus()
+
     // }
   render () {
-      const {myFullName} = this.state
+      const {location} = this.state
+      const {movie} = this.state
     return (
       <div>
         <Container>
             <Row>
                 <Col>
                 <div>
-                 <p>Selected Movie: {myFullName}</p>
+                 <p>Selected Location: {location}</p>
+                 <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
-                    <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
-
+                    <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie'/>
+                   
                     <p><button>Search</button></p>
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
@@ -101,6 +110,7 @@ class Movies extends Component {
                  <p>Selected movie Genre: </p>
                  <p>Selected movie Rating: </p>
                  <p>Selected movie Synopsis: </p>
+                 <p>Movie ticket purchase link: </p>
                 </Col>
                 <Col>
                 <div>
