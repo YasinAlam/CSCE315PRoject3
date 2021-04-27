@@ -7,9 +7,9 @@ import SongPage from "./Pages/SongPage"
 
 function App() {
 //  //Bandsintown API Testing
-  useEffect(() => {
-    fetch('/api/bandsintown/5 seconds of summer/events/future');
-  }, []);
+//  useEffect(() => {
+//    fetch('/api/bandsintown/5 seconds of summer/events/future');
+//  }, []);
 //  useEffect(() => {
 //    fetch('/api/bandsintown/5 seconds of summer/events/past');
 //  }, []);
@@ -43,9 +43,9 @@ function App() {
 //  }, []);
 
     //Location API Testing
-//  useEffect(() => {
-//    fetch('/api/location/77375');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/location/77375');
+  }, []);
 return (
       <Router>
 
