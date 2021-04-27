@@ -65,19 +65,14 @@ def getAllArtistsWithName(artistInput = None):
             else:
                 artistGenreArray.append(None)
 
-    # # print(artistNameArray)
-    # # print(artistIDArray)
-    # # print(artistImageArray)
-    # # print(artistGenreArray)
+    # print(artistNameArray)
+    # print(artistIDArray)
+    # print(artistImageArray)
+    # print(artistGenreArray)
     result = {"artistNameArray" : artistNameArray, "artistIDArray" : artistIDArray,
                     "artistImageArray" : artistImageArray, "artistGenreArray" : artistGenreArray}
-    writeToFile(result,"artistsQuery")
-    return jsonify(result)
 
-
-#*************************************Get all Albums related to chosen Artist*************************************#
-@spotify.route('/api/spotify/artists/<artistID>')
-def getAllTracksWithID(artistID = None):
+    artistID = artistIDArray[0]
     #GET request with proper header to find all albums by chosen artist
     result = requests.get(BASE_URL + 'artists/' + artistID + '/albums', headers=headers)
     result = result.json()
@@ -151,9 +146,17 @@ def getAllTracksWithID(artistID = None):
     #     print(("Track Name: " + trackNameArray[i]).ljust(60),("\tPopularity Score: " + str(trackPopularityArray[i])).center(0),
     #           ("\tArtist: " + chosenArtistName).rjust(0))
 
+    sortedTrackList = [trackNameArray for (trackPopularityArray, trackNameArray) in sorted(zip(
+                        trackPopularityArray, trackNameArray), key=lambda pair: pair[0],reverse = True)]
+    sortedTrackLength = [trackLength for (trackPopularityArray, trackLength) in sorted(zip(
+                        trackPopularityArray, trackLength), key=lambda pair: pair[0],reverse = True)]
+    sortedTrackReleaseDate = [trackReleaseDate for (trackPopularityArray, trackReleaseDate) in sorted(zip(
+                        trackPopularityArray, trackReleaseDate), key=lambda pair: pair[0],reverse = True)]
+    sortedpopularityList = sorted(trackPopularityArray,reverse=True)
 
-    result = {"trackNameArray" : trackNameArray, "trackPopularityArray" : trackPopularityArray,
-              "trackLength" : trackLength, "trackReleaseDate" : trackReleaseDate}
+    result = {"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0], "artistGenre" :artistGenreArray[0],
+              "trackNameArray" : sortedTrackList, "trackPopularityArray" : sortedpopularityList,
+              "trackLength" : sortedTrackLength, "trackReleaseDate" : sortedTrackReleaseDate}
     writeToFile(result,"allTracks")
     return jsonify(result)
 

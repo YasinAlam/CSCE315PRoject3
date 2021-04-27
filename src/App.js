@@ -18,9 +18,9 @@ function App() {
 //  }, []);
 //
 //  //Spotify API Testing
-//  useEffect(() => {
-//    fetch('/api/spotify/search/Drake');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/spotify/search/Drake');
+  }, []);
 //  useEffect(() => {
 //    fetch('/api/spotify/artists/3TVXtAsR1Inumwj472S9r4');
 //  }, []);
