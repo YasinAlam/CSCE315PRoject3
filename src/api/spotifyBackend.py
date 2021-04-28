@@ -161,6 +161,40 @@ def getAllArtistsWithName(artistInput = None):
     return jsonify(result)
 
 
+#*************************************Get all Artists with provided name*************************************#
+@spotify.route('/api/spotify/topresults')
+def getTopCharts():
+    # GET request with proper header for all playlists with provided name
+    result = requests.get(BASE_URL + 'search/', headers=headers, params={'q': "Top 50 - USA", 'type': 'playlist'})
+    result = result.json()
+    playlistID = result['playlists']['items'][0]['id']
+
+    # GET request with proper header for all playlists with provided name
+    result = requests.get(BASE_URL + 'playlists/'+playlistID, headers=headers)
+    result = result.json()
+
+    #Get top 5 results from playlist
+    artistNames = []
+    albumNames = []
+    albumImages = []
+    songNames= []
+    songPopularities = []
+    count = 0
+    for i in result['tracks']['items']:
+        if(count == 5):
+            break
+        artistNames.append(i['track']['artists'][0]['name'])
+        albumNames.append(i['track']['album']['name'])
+        albumImages.append(i['track']['album']['images'][0]['url'])
+        songNames.append(i['track']['name'])
+        songPopularities.append(i['track']['popularity'])
+        count+=1
+
+    result = {"artistNames" : artistNames, "albumNames" : albumNames, "albumImages" : albumImages,
+                    "songNames" : songNames, "songPopularities" : songPopularities}
+    writeToFile(result,"TopCharts")
+    return jsonify()
+
 def writeToFile(result,name):
     # print(result,"hello")
     name = "src/data/"+name+".json"
