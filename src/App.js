@@ -5,10 +5,10 @@ import {Route, BrowserRouter as Router, Link} from "react-router-dom";
 import MoviesPage from "./Pages/MoviePage"
 import SongPage from "./Pages/SongPage"
 import * as ReactBootStrap from "react-bootstrap";
-//import bg from './images/bg.jpeg'
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
 import { lightTheme, darkTheme } from "./components/Themes"
+import logo from '../../CSCE315PRoject3/src/images/logo.png'
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -64,23 +64,32 @@ return (
       <Router >
 
         <ReactBootStrap.Navbar collapseOnSelect expand="xxl" bg="dark" variant="dark">
-  <ReactBootStrap.Navbar.Brand href=".">FLICKS N PICKS</ReactBootStrap.Navbar.Brand>
-  <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
-  <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
-    <ReactBootStrap.Nav className="mr-auto"> 
-    <Link to="/MoviesPage">
-    <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
-        Movie Page
-      </ReactBootStrap.Nav.Link>
-    </Link>
-    <Link to="/SongPage">
-    <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
-        Songs Page
-      </ReactBootStrap.Nav.Link>
-    </Link>
-    </ReactBootStrap.Nav>
-  </ReactBootStrap.Navbar.Collapse>
-  </ReactBootStrap.Navbar>
+        <ReactBootStrap.Navbar.Brand href=".">
+          <img
+            alt=""
+            src={logo}//"https://i.scdn.co/image/ab67616d0000b273175715816616d0fb317fabeb"
+            width="40"
+            height="50"
+            className="d-inline-block align-top"
+          />{' '}
+          Flicks 'n Picks
+        </ReactBootStrap.Navbar.Brand>
+        <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
+          <ReactBootStrap.Nav className="mr-auto"> 
+            <Link to="/MoviesPage">
+              <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
+                  Movie Page
+              </ReactBootStrap.Nav.Link>
+            </Link>
+            <Link to="/SongPage">
+              <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
+                  Songs Page
+              </ReactBootStrap.Nav.Link>
+            </Link>
+          </ReactBootStrap.Nav>
+        </ReactBootStrap.Navbar.Collapse>
+        </ReactBootStrap.Navbar>
 
         <Route path="/MoviesPage" component={MoviesPage} />
         <Route path="/SongPage" component={SongPage} />

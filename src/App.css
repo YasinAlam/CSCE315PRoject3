@@ -4,17 +4,12 @@
 }
 
 body {
-  background-color: turquoise;
+  background-image: "/images/bg.jpeg";
   background-size: cover;
   color: black;
   padding: 0px;
   font-family: Arial;
   text-align: center;
-}
-
-.dark-mode {
-  background-color: black;
-  color: white;
 }
 
 .App-logo {
