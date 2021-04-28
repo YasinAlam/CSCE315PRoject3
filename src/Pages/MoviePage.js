@@ -5,7 +5,7 @@ import '../App.css'
 
 export default function MoviesPage(){
     return(
-        <div style= {{backgroundColor: "#61dafb"}}>
+        <div style= {{backgroundImage: "../images/bg.jpeg"}}>
             <Movies />
         </div>
     );

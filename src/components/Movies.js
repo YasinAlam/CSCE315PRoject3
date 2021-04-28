@@ -94,7 +94,7 @@ class Movies extends Component {
         <Container>
             <Row>
                 <Col>
-                <div>
+                <div style= {{border: "3px solid black"}}>
                  <p>Selected Location: {location}</p>
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>

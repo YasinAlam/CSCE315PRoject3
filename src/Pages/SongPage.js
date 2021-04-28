@@ -3,7 +3,7 @@ import Songs from '../components/Songs';
 
 export default function MoviesPage(){
     return(
-        <div style= {{backgroundColor: "#61dafb"}}>
+        <div style= {{}}>
             <Songs />
         </div>
     );

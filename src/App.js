@@ -47,6 +47,7 @@ function App() {
     fetch('/api/location/77375');
   }, []);
 return (
+    <div style= {{textAlign: 'center', backgroundColor: "#61dafb"}}>
       <Router >
 
         <div className="container" style= {{textAlign: 'center'}}>
@@ -64,6 +65,7 @@ return (
         <Route path="/SongPage" component={SongPage} />
 
       </Router>
+    </div>
     );
 }
 
