@@ -3,13 +3,17 @@
   background-color: rgb(133, 206, 255);
 }
 
-body {
-  background-color: turquoise;
-  background-size: cover;
-  color: black;
-  padding: 0px;
-  font-family: Arial;
-  text-align: center;
+
+.Main-Page{
+  background-image: url('images/bg.jpeg');
+  background-size: 100% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position:  0 50%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+
 }
 
 .dark-mode {

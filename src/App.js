@@ -88,6 +88,8 @@ return (
       </Router>
       <button onClick={themeToggler}>TURN THE FUCKIN LIGHTS OUT</button>
 </div>
+<div className = "Main-Page">
+</div>
 </>
     </ThemeProvider>
 

@@ -31,7 +31,6 @@ headers = {
 #Set Base URL of all Spotify API endpoints
 BASE_URL = 'https://api.spotify.com/v1/'
 
-getTopCharts()
 #*************************************Get all Artists with provided name*************************************#
 @spotify.route('/api/spotify/search/<artistInput>')
 def getAllArtistsWithName(artistInput = None):
