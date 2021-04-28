@@ -43,9 +43,9 @@ function App() {
 //  }, []);
 
     //Location API Testing
-  useEffect(() => {
-    fetch('/api/location/77375');
-  }, []);
+//  useEffect(() => {
+//    fetch('/api/location/77375');
+//  }, []);
 return (
       <Router >
 

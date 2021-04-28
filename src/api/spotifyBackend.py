@@ -190,8 +190,11 @@ def getTopCharts():
         songPopularities.append(i['track']['popularity'])
         count+=1
 
-    result = {"artistNames" : artistNames, "albumNames" : albumNames, "albumImages" : albumImages,
-                    "songNames" : songNames, "songPopularities" : songPopularities}
+    result = []
+    for i in range(len(artistNames)):
+        result.append({"artistName": artistNames[i], "albumName": albumNames[i], "albumImage": albumImages[i],
+         "songName": songNames[i], "songPopularity": songPopularities[i]})
+
     writeToFile(result,"TopCharts")
     return jsonify()
 
