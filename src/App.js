@@ -47,9 +47,9 @@ function App() {
     fetch('/api/location/77375');
   }, []);
 return (
-      <Router>
+      <Router >
 
-        <div className="container">
+        <div className="container" style= {{textAlign: 'center'}}>
           <h1>Flicks N Picks</h1>
             <nav>
               <ul>
