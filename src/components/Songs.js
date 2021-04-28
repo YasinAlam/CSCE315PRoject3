@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
-import SongData from '../data/song.json';
+import SongData from '../data/TopCharts.json';
 import ConcertData from '../data/concert.json';
  
 class MyInputBlock extends Component {
@@ -120,13 +120,11 @@ class Songs extends Component {
                     <h2>Top Songs of the Month: </h2>
                     {SongData.map((songDetail, index) => {
                         return <div>
-                            <h3>{songDetail.title}</h3>
-                            <img src= {songDetail.poster} height = {270} width = {270}/>
-                            <p>Release Date: {songDetail.release_date}</p>
-                            <p>Artist: {songDetail.artist}</p>
-                            <p>Monthly Listeners: {songDetail.monthly_listeners}</p>
-                            <p>Length: {songDetail.length}</p>
-                            <p>Genre: {songDetail.genre}</p>
+                            <h3>{songDetail.songName}</h3>
+                            <img src= {songDetail.albumImage} height = {270} width = {270}/>
+                            <p>Artist: {songDetail.artistName}</p>
+                            <p>Popularity: {songDetail.songPopularity}</p>
+                            <p>Album: {songDetail.albumName}</p>
                         </div>
                     })}
                     </div>
