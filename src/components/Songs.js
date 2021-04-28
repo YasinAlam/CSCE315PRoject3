@@ -72,10 +72,21 @@ class Songs extends Component {
     }
     handleClearClick = (event) => {
         event.preventDefault()
-            this.inputFullNameRef.current.value = ''
+            //Clear from top text area
             this.setState({
                 myFullName: ''
             })
+
+            //Clear from text fields
+            Array.from(document.querySelectorAll("input")).forEach(
+                input => (input.value = "")
+            );
+            this.setState({
+                itemvalues: [{}]
+            });
+
+            const data = this.state
+            console.log("Final data is", data)
     }
     // componentDidMount(){
     //     this.inputFullNameRef.current.focus()
