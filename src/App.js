@@ -6,8 +6,20 @@ import MoviesPage from "./Pages/MoviePage"
 import SongPage from "./Pages/SongPage"
 import * as ReactBootStrap from "react-bootstrap";
 //import bg from './images/bg.jpeg'
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./components/globalStyles";
+import { lightTheme, darkTheme } from "./components/Themes"
+
+function myFunction() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
+}
 
 function App() {
+  const [theme, setTheme] = useState('light');
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
+}
 //  //Bandsintown API Testing
 //  useEffect(() => {
 //    fetch('/api/bandsintown/5 seconds of summer/events/future');
@@ -27,7 +39,7 @@ function App() {
     fetch('/api/spotify/topresults');
   }, []);
 
-//  //MovieGlu API Testing
+//  //MovieGlu API Testings
 //  useEffect(() => {
 //    fetch('/api/movieglu/nowplaying');
 //  }, []);
@@ -49,8 +61,11 @@ function App() {
 //    fetch('/api/location/77375');
 //  }, []);
 return (
-
-<div style= {{textAlign: 'center', backgroundColor: "#61dafb"}}>
+  <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
+      <GlobalStyles/>
+<div style= {{textAlign: 'center'}}>
+  
       <Router >
 
         <ReactBootStrap.Navbar collapseOnSelect expand="xxl" bg="dark" variant="dark">
@@ -76,8 +91,10 @@ return (
         <Route path="/SongPage" component={SongPage} />
 
       </Router>
+      <button onClick={themeToggler}>TURN THE FUCKIN LIGHTS OUT</button>
 </div>
-
+</>
+    </ThemeProvider>
 
 
     );

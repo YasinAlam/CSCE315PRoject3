@@ -51,7 +51,6 @@ class Movies extends Component {
 
     }
 
-
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
@@ -92,6 +91,7 @@ class Movies extends Component {
     return (
       <div>
         <Container>
+            
             <Row>
                 <Col>
                 <div style= {{border: "5px solid black", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
