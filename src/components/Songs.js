@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
-import SongData from '../data/TopCharts.json';
+//import SongData from '../data/TopCharts.json';
 import ConcertData from '../data/concert.json';
  
 class MyInputBlock extends Component {
