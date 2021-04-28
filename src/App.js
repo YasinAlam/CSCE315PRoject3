@@ -54,7 +54,7 @@ return (
       <Router >
 
         <ReactBootStrap.Navbar collapseOnSelect expand="xxl" bg="dark" variant="dark">
-  <ReactBootStrap.Navbar.Brand href="#home">FLICKS N PICKS</ReactBootStrap.Navbar.Brand>
+  <ReactBootStrap.Navbar.Brand href=".">FLICKS N PICKS</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
     <ReactBootStrap.Nav className="mr-auto"> 

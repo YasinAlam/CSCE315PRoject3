@@ -3,6 +3,15 @@
   background-color: rgb(133, 206, 255);
 }
 
+body {
+  background-image: url("images/bg.jpeg");
+  background-size: cover;
+  color: black;
+  padding: 0px;
+  font-family: Arial;
+  text-align: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,7 +35,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #76b1c2;
 }
 
 @keyframes App-logo-spin {

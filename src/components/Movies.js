@@ -94,7 +94,7 @@ class Movies extends Component {
         <Container>
             <Row>
                 <Col>
-                <div style= {{border: "3px solid black"}}>
+                <div style= {{border: "5px solid black", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
                  <p>Selected Location: {location}</p>
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
@@ -103,20 +103,22 @@ class Movies extends Component {
                     <p><button>Search</button></p>
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
-                 
                  </div>
-                 <p>Selected movie Release Date: </p>
-                 <p>Selected movie Runtime: </p>
-                 <p>Selected movie Genre: </p>
-                 <p>Selected movie Rating: </p>
-                 <p>Selected movie Synopsis: </p>
-                 <p>Movie ticket purchase link: </p>
+                 <div style= {{border: "5px solid black", backgroundColor: "#7681c2", padding: "10px"}}>
+                    <p>Selected movie Release Date: </p>
+                    <p>Selected movie Runtime: </p>
+                    <p>Selected movie Genre: </p>
+                    <p>Selected movie Rating: </p>
+                    <p>Selected movie Synopsis: </p>
+                    <p>Movie ticket purchase link: </p>
+                 </div>
+                 
                 </Col>
                 <Col>
-                <div>
+                <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px"}}>
                     <h2>Local Theaters</h2>
                     {TheaterData.map((theaterDetail, index) => {
-                        return <div>
+                        return <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{theaterDetail.name}</h3>
                             <p>Address: {theaterDetail.address}, {theaterDetail.city}, {theaterDetail.state}, {theaterDetail.zip_code} </p>
                             <p>Showtimes: {theaterDetail.showtime_day} at {theaterDetail.showtimes}</p>
@@ -125,10 +127,10 @@ class Movies extends Component {
                 </div>
                 </Col>
                 <Col>
-                <div>
+                <div style= {{border: "5px solid black", backgroundColor: "#7a61a241", padding: "10px"}}>
                     <h2>Top Movies of the Month: </h2>
                     {PostData.map((postDetail, index) => {
-                        return <div>
+                        return <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{postDetail.title}</h3>
                             <img src= {postDetail.poster} height = {320} width = {270}/>
                             <p>Release Date: {postDetail.release_date}</p>
