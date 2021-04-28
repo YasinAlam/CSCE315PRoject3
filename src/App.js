@@ -35,9 +35,9 @@ function App() {
   }, []);
 
 //  //MovieGlu API Testings
-//  useEffect(() => {
-//    fetch('/api/movieglu/nowplaying');
-//  }, []);
+  useEffect(() => {
+    fetch('/api/movieglu/nowplaying');
+  }, []);
 //  useEffect(() => {
 //    fetch('/api/movieglu/updateLocation/30.0739/-95.6201');
 //  }, []);
@@ -96,6 +96,8 @@ return (
 
       </Router>
       <button onClick={themeToggler}>TURN THE FUCKIN LIGHTS OUT</button>
+</div>
+<div className = "Main-Page">
 </div>
 </>
     </ThemeProvider>

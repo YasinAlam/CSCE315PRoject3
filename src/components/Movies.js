@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import PostData from '../data/movie.json';
+import PostData from '../data/nowPlaying.json';
 import TheaterData from '../data/theater.json';
  
 class MyInputBlock extends Component {
@@ -73,14 +73,24 @@ class Movies extends Component {
     }
     handleClearClick = (event) => {
         event.preventDefault()
-            this.inputLocationRef.current.value = ''
+            //Clear from top text area
             this.setState({
                 location: ''
             })
-            this.inputMovieRef.current.value = ''
             this.setState({
                 movie: ''
             })
+
+            //Clear from text fields
+            Array.from(document.querySelectorAll("input")).forEach(
+                input => (input.value = "")
+            );
+            this.setState({
+                itemvalues: [{}]
+            });
+
+            const data = this.state
+            console.log("Final data is", data)
     }
     // componentDidMount(){
 
@@ -98,7 +108,7 @@ class Movies extends Component {
                  <p>Selected Location: {location}</p>
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
-                    <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie'/>
+                    <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie' />
                    
                     <p><button>Search</button></p>
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
@@ -128,16 +138,16 @@ class Movies extends Component {
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#7a61a241", padding: "10px"}}>
-                    <h2>Top Movies of the Month: </h2>
+                    <h2>Movies Playing Right Now: </h2>
                     {PostData.map((postDetail, index) => {
                         return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                            <h3>{postDetail.title}</h3>
-                            <img src= {postDetail.poster} height = {320} width = {270}/>
-                            <p>Release Date: {postDetail.release_date}</p>
-                            <p>Runtime: {postDetail.runtime}</p>
-                            <p>Genre: {postDetail.genre}</p>
-                            <p>Rating: {postDetail.rating}</p>
-                            <p>Synopsis: {postDetail.synopsis}</p>
+                            <h3>{postDetail.filmName}</h3>
+                            <img src= {postDetail.movieImage} height = {320} width = {270}/>
+                            <p>Release Date: {postDetail.releaseDate}</p>
+                            <p>Runtime: {postDetail.movieRuntime} Minutes</p>
+                            <p>Genre: {postDetail.movieGenre}</p>
+                            <p>Rating: {postDetail.movieRating}</p>
+                            <p>Synopsis: {postDetail.filmSynop}</p>
                         </div>
                     })}
                     </div>

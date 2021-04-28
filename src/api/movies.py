@@ -53,6 +53,7 @@ def nowPlaying():
     movieRating = []
     movieRuntime = []
     movieGenre = []
+    movieImage = []
 
     for i in result["films"]:
         filmSynop.append(i["synopsis_long"])
@@ -69,14 +70,22 @@ def nowPlaying():
         movieRuntime.append(result["duration_mins"])
         movieGenre.append(result["genres"][0]["genre_name"])
 
+        result = requests.get(BASE_URL + 'images/', headers=headers, params={"film_id": i})
+        result = result.json()
+
+        movieImage.append(result["poster"]["1"]["medium"]["film_image"])
+
     # print(filmSynop)
     # print(filmName)
     # print(releaseDate)
     # print(filmRating)
     # print(filmID)
 
-    result = {"filmSynop" : filmSynop, "filmName" : filmName, "releaseDate" : releaseDate, "filmRating" : filmRating,
-              "filmID" :filmID, "movieRating" : movieRating, "movieGenre" : movieGenre, "movieRuntime" : movieRuntime}
+    result = []
+    for i in range(len(filmID)):
+        result.append({"filmSynop" : filmSynop[i], "filmName" : filmName[i], "releaseDate" : releaseDate[i],
+                       "filmRating" : filmRating[i], "filmID" :filmID[i], "movieRating" : movieRating[i],
+                       "movieGenre" : movieGenre[i], "movieRuntime" : movieRuntime[i], "movieImage" : movieImage[i]})
     writeToFile(result, "nowPlaying")
     return jsonify()
 
