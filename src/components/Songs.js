@@ -87,7 +87,7 @@ class Songs extends Component {
         <Container>
             <Row>
                 <Col>
-                <div style= {{border: "5px solid black", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
                  <p>Selected Song: {myFullName}</p>
                  <form onSubmit={this.handleSubmit}>
                     <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
@@ -97,7 +97,7 @@ class Songs extends Component {
                  </form>
                  
                  </div>
-                <div style= {{border: "5px solid black", backgroundColor: "#7681c2", padding: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#7681c2", padding: "10px"}}>
                     <p>Selected song Release Date: </p>
                     <p>Selected song Artist: </p>
                     <p>Selected song Monthly Listeners: </p>
@@ -106,10 +106,10 @@ class Songs extends Component {
                 </div>
                 </Col>
                 <Col>
-                <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px"}}>
                     <h2>Local Concerts</h2>
                     {ConcertData.map((concertDetail, index) => {
-                        return <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
+                        return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{concertDetail.name}</h3>
                             <p>Address: {concertDetail.address}, {concertDetail.city}, {concertDetail.state}, {concertDetail.zip_code} </p>
                             <p>Showtimes: {concertDetail.showtime_day} at {concertDetail.showtimes}</p>
@@ -118,10 +118,10 @@ class Songs extends Component {
                 </div>
                 </Col>
                 <Col>
-                <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                     <h2>Top Songs of the Month: </h2>
                     {SongData.map((songDetail, index) => {
-                        return <div style= {{border: "5px solid black", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
+                        return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{songDetail.songName}</h3>
                             <img src= {songDetail.albumImage} height = {270} width = {270}/>
                             <p>Artist: {songDetail.artistName}</p>

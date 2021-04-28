@@ -10,11 +10,6 @@ import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
 import { lightTheme, darkTheme } from "./components/Themes"
 
-function myFunction() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
-}
-
 function App() {
   const [theme, setTheme] = useState('light');
   const themeToggler = () => {

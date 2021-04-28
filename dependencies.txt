@@ -9,6 +9,7 @@ Format:
 GUI:
 npm install react-bootstrap bootstrap
 npm install --save react-router
+npm install styled-components
 
 Music:
 
