@@ -73,14 +73,24 @@ class Movies extends Component {
     }
     handleClearClick = (event) => {
         event.preventDefault()
-            this.inputLocationRef.current.value = ''
+            //Clear from top text area
             this.setState({
                 location: ''
             })
-            this.inputMovieRef.current.value = ''
             this.setState({
                 movie: ''
             })
+
+            //Clear from text fields
+            Array.from(document.querySelectorAll("input")).forEach(
+                input => (input.value = "")
+            );
+            this.setState({
+                itemvalues: [{}]
+            });
+
+            const data = this.state
+            console.log("Final data is", data)
     }
     // componentDidMount(){
 
@@ -98,7 +108,7 @@ class Movies extends Component {
                  <p>Selected Location: {location}</p>
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
-                    <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie'/>
+                    <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie' />
                    
                     <p><button>Search</button></p>
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
