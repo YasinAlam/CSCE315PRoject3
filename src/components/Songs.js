@@ -45,6 +45,7 @@ class Songs extends Component {
         }
         this.inputFullNameRef = React.createRef()
         this.inputEmailRef = React.createRef()
+        fetch('/api/spotify/topresults')
     }
 
 
