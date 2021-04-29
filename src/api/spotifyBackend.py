@@ -153,9 +153,11 @@ def getAllArtistsWithName(artistInput = None):
                         trackPopularityArray, trackReleaseDate), key=lambda pair: pair[0],reverse = True)]
     sortedpopularityList = sorted(trackPopularityArray,reverse=True)
 
-    result = {"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0], "artistGenre" :artistGenreArray[0],
-              "trackNameArray" : sortedTrackList, "trackPopularityArray" : sortedpopularityList,
-              "trackLength" : sortedTrackLength, "trackReleaseDate" : sortedTrackReleaseDate}
+    result = []
+    for i in range(len(sortedTrackReleaseDate)):
+        result.append({"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0], "artistGenre" :artistGenreArray[0],
+              "trackNameArray" : sortedTrackList[i], "trackPopularityArray" : sortedpopularityList[i],
+              "trackLength" : sortedTrackLength[i], "trackReleaseDate" : sortedTrackReleaseDate[i]})
     writeToFile(result,"allTracks")
     return jsonify(result)
 

@@ -61,16 +61,18 @@ def getFutureArtistEvents(artistInput = None):
     ticketDateArrayFuture = []
     dateArrayFuture = []
     descriptionArrayFuture = []
-    venueArrayFuture = [] #{"Venue","City","Region", "Country"}
+    venueArrayFuture = []
+    cityArrayFuture = []
+    countryArrayFuture = []
     titleArrayFuture = []
     ticketURLFuture = []
 
     for i in futureEvents:
         dateArrayFuture.append(i["datetime"][0:10])
         descriptionArrayFuture.append([i["description"]])
-        venueArrayFuture.append(
-            {"venue": i["venue"]["name"], "city": i["venue"]["city"], "region": i["venue"]["region"],
-             "country": i["venue"]["country"]})
+        venueArrayFuture.append(i["venue"]["name"])
+        cityArrayFuture.append(i["venue"]["city"] + ', ' + i["venue"]["region"] + ', ' + i["venue"]["country"])
+        countryArrayFuture.append(i["venue"]["country"])
         titleArrayFuture.append(i["title"])
         ticketDateArrayFuture.append(i["on_sale_datetime"][0:10])
 
@@ -84,9 +86,17 @@ def getFutureArtistEvents(artistInput = None):
     # print(ticketDateArrayFuture)
 
 
-    result = {"dateArrayFuture": dateArrayFuture, "descriptionArrayFuture": descriptionArrayFuture,
-                    "venueArrayFuture": venueArrayFuture, "titleArrayFuture": titleArrayFuture,
-                    "ticketDateArrayFuture" : ticketDateArrayFuture, "ticketURLFuture" : ticketURLFuture}
+    result = []
+    if(len(dateArrayFuture) != 0):
+        for i in range(len(dateArrayFuture)):
+            if(countryArrayFuture[i] == "United States"):
+                result.append({"dateArrayFuture": dateArrayFuture[i], "descriptionArrayFuture": descriptionArrayFuture[i],
+                               "venueArrayFuture" : venueArrayFuture[i], "cityArrayFuture" : cityArrayFuture[i],
+                               "titleArrayFuture": titleArrayFuture[i], "ticketDateArrayFuture" : ticketDateArrayFuture[i],
+                               "ticketURLFuture" : ticketURLFuture[i]})
+    else:
+        result.append({"venueArrayFuture" : "No Concerts Found for that artist", "ticketURLFuture" :
+                       "https://i.ytimg.com/vi/hAq443fhyDo/maxresdefault.jpg"})
     writeToFile(result, "futureEvents")
     return jsonify(result)
 
@@ -113,3 +123,12 @@ def writeToFile(result,name):
     name = "src/data/"+name+".json"
     with open(name, 'w') as outfile:
         json.dump(result, outfile)
+
+
+@bandsintown.route('/api/bandsintown/reset')
+def resetConcerts():
+    result = []
+    result.append({"venueArrayFuture" : "Please Search for an Artist to find concerts", "ticketURLFuture" :
+                       "https://i.ytimg.com/vi/hAq443fhyDo/maxresdefault.jpg"})
+    writeToFile(result, "futureEvents")
+    return jsonify(result)

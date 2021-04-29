@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
 import SongData from '../data/TopCharts.json';
-import ConcertData from '../data/concert.json';
+import ConcertData from '../data/futureEvents.json';
  
 class MyInputBlock extends Component {
     constructor(props){
@@ -46,12 +46,15 @@ class Songs extends Component {
         this.inputFullNameRef = React.createRef()
         this.inputEmailRef = React.createRef()
         fetch('/api/spotify/topresults')
+//        fetch('/api/bandsintown/reset');
     }
 
 
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
+        let request = '/api/bandsintown/' + data.myFullName + '/events/future'
+        fetch(request);
         // console.log(this.inputFullNameRef.current.value)
         console.log("Final data is", data)
     }
@@ -85,6 +88,7 @@ class Songs extends Component {
                 itemvalues: [{}]
             });
 
+            fetch('/api/bandsintown/reset');
             const data = this.state
             console.log("Final data is", data)
     }
@@ -121,9 +125,10 @@ class Songs extends Component {
                     <h2>Local Concerts</h2>
                     {ConcertData.map((concertDetail, index) => {
                         return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                            <h3>{concertDetail.name}</h3>
-                            <p>Address: {concertDetail.address}, {concertDetail.city}, {concertDetail.state}, {concertDetail.zip_code} </p>
-                            <p>Showtimes: {concertDetail.showtime_day} at {concertDetail.showtimes}</p>
+                            <h3>{concertDetail.venueArrayFuture}</h3>
+                            <p>Location: {concertDetail.cityArrayFuture}</p>
+                            <p>Date: {concertDetail.dateArrayFuture}</p>
+                            <a href={concertDetail.ticketURLFuture} target="_blank">Purchase Tickets</a>
                         </div>
                     })}
                 </div>
