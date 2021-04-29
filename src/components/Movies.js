@@ -32,7 +32,7 @@ class MyInputBlock extends Component {
           <p><input ref={this.setTextInputRef} type='text' placeholder='Zip Code'  name={this.props.inputLocation} onChange={this.handleChange}/></p>
 
 
-            <p><input ref={this.setTextInputRef} type='text' placeholder='Movie'  name={this.props.inputMovie} onChange={this.handleChange}/></p>
+            <p><input ref={this.setTextInputRef} type='text' placeholder='All Movies'  name={this.props.inputMovie} onChange={this.handleChange}/></p>
 
             </div>
       )
@@ -40,6 +40,7 @@ class MyInputBlock extends Component {
 }
 
 class Movies extends Component {
+
     constructor(props){
         super(props)
         this.state = {
@@ -57,7 +58,7 @@ class Movies extends Component {
         const data = this.state
 
         //Create variables for Latitude and Longitude
-        var lat, long, location;
+        var lat, long;
 
         //Get Nearby theaters and update Movies Playing right now
         if(data.movie === ''){
@@ -77,7 +78,10 @@ class Movies extends Component {
         }
         //Get nearby theaters and specific Movies Playing right now
         else{
+        let request = '/api/movieglu/selectMovie/' + data.movie
+        fetch(request);
         console.log(data.movie)
+        var mydata = JSON.parse(data);
         }
         console.log("Final data is", data)
     }
@@ -116,6 +120,8 @@ class Movies extends Component {
 
             const data = this.state
             console.log("Final data is", data)
+            fetch('/api/movieglu/nowplaying');
+            fetch('/api/movieglu/cinemas/2021-04-25');
     }
     // componentDidMount(){
 
@@ -140,7 +146,7 @@ class Movies extends Component {
                  </form>
                  </div>
                  <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
-                    <p>Selected movie Release Date: </p>
+                    <p>Selected movie Release Date: {TheaterData.releaseDate}</p>
                     <p>Selected movie Runtime: </p>
                     <p>Selected movie Genre: </p>
                     <p>Selected movie Rating: </p>

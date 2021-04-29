@@ -93,7 +93,7 @@ def nowPlaying():
 @movieglu.route('/api/movieglu/cinemas/<queryDate>')
 def nearbyCinemas(queryDate):
     #GET request with proper header for all cinemas in your area
-    result = requests.get(BASE_URL + 'cinemasNearby/', headers=headers, params={'n' : 25})
+    result = requests.get(BASE_URL + 'cinemasNearby/', headers=headers, params={'n' : 10})
     result = result.json()
 
     #Parse result and get Cinema ID's, Distance, Names, Logos, and addresses
@@ -108,7 +108,7 @@ def nearbyCinemas(queryDate):
     for i in result["cinemas"]:
         cinemaIDs.append(i["cinema_id"])
         cinemaNames.append(i["cinema_name"])
-        cinemaDistances.append(i["distance"])
+        cinemaDistances.append(int(i["distance"]))
         cinemaLogos.append(i["logo_url"])
         cinemaAddresses.append(i["address"])
         cinemaCities.append(i["city"])
@@ -116,7 +116,7 @@ def nearbyCinemas(queryDate):
 
     cinemaResult = []
     for i in range(len(cinemaStates)):
-        cinemaResult.append({"cinemaIDs" : cinemaIDs, "cinemaDistances" : cinemaDistances[i],
+        cinemaResult.append({"cinemaIDs" : cinemaIDs[i], "cinemaDistances" : cinemaDistances[i],
                              "cinemaNames" : cinemaNames[i], "cinemaLogos" : cinemaLogos[i],
                              "cinemaAddresses" : cinemaAddresses[i], "cinemaCities" : cinemaCities[i],
                              "cinemaStates" : cinemaStates[i]})
@@ -125,7 +125,7 @@ def nearbyCinemas(queryDate):
 
 #*************************************Get all showtimes for provided cinemas*************************************#
     filmsInCinemas = {}
-    queryDate = '2021-04-19' #Comment out when not using Sandbox
+    queryDate = '2021-04-29' #Comment out when not using Sandbox
     #Goes through every cinema and adds all information related to that cinema to an array
     for cinema in cinemaIDs:
         #GET request with proper header for showtimes for every movie
@@ -221,6 +221,27 @@ def updateHeaders(lat, longi):
     #     'device-datetime' : ISO_8601_time
     # }
     return jsonify({"Latitude" : lat, "Longitude" : longi})
+
+@movieglu.route('/api/movieglu/selectMovie/<movie>')
+def selectMovie(movie):
+    oldData = json.load(open("src/data/nowPlaying.json"))
+
+    newData = []
+    found = False
+    for i in range(len(oldData)):
+        if(oldData[i]['filmName'] == movie):
+            newData.append(oldData[i])
+            found = True
+
+    if(not found):
+        newData.append({"filmName" : "No Movies Found With That Name",
+                        "movieImage" : "https://i.ytimg.com/vi/hAq443fhyDo/maxresdefault.jpg"})
+
+    with open('src/data/nowPlaying.json', 'w') as newFile:
+        json.dump(newData, newFile)
+
+    return(jsonify({'Test' : 'Test'}))
+
 
 def writeToFile(result,name):
     # print(result,"hello")
