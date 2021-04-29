@@ -145,14 +145,6 @@ class Movies extends Component {
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
                  </div>
-                 <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
-                    <p>Selected movie Release Date: {TheaterData.releaseDate}</p>
-                    <p>Selected movie Runtime: </p>
-                    <p>Selected movie Genre: </p>
-                    <p>Selected movie Rating: </p>
-                    <p>Selected movie Synopsis: </p>
-                    <p>Movie ticket purchase link: </p>
-                 </div>
 
                 </Col>
                 <Col>
