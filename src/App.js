@@ -8,7 +8,7 @@ import * as ReactBootStrap from "react-bootstrap";
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
 import { lightTheme, darkTheme } from "./components/Themes"
-import logo from '../../CSCE315PRoject3/src/images/logo.png'
+import logo from './images/logo.png'
 
 function App() {
   const [theme, setTheme] = useState('light');
