@@ -104,7 +104,7 @@ class Movies extends Component {
             
             <Row>
                 <Col>
-                <div style= {{border: "5px solid", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#76b1c241", padding: "10px", marginBottom: "10px"}}>
                  <p>Selected Location: {location}</p>
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
@@ -114,7 +114,7 @@ class Movies extends Component {
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
                  </div>
-                 <div style= {{border: "5px solid", backgroundColor: "#7681c2", padding: "10px"}}>
+                 <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
                     <p>Selected movie Release Date: </p>
                     <p>Selected movie Runtime: </p>
                     <p>Selected movie Genre: </p>

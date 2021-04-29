@@ -98,7 +98,7 @@ class Songs extends Component {
         <Container>
             <Row>
                 <Col>
-                <div style= {{border: "5px solid", backgroundColor: "#76b1c2", padding: "10px", marginBottom: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#76b1c241", padding: "10px", marginBottom: "10px"}}>
                  <p>Selected Song: {myFullName}</p>
                  <form onSubmit={this.handleSubmit}>
                     <MyInputBlock onChange={this.handleInputChange} inputFullName="myFullName" inputContentName='myContent'/>
@@ -108,7 +108,7 @@ class Songs extends Component {
                  </form>
                  
                  </div>
-                <div style= {{border: "5px solid", backgroundColor: "#7681c2", padding: "10px"}}>
+                <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
                     <p>Selected song Release Date: </p>
                     <p>Selected song Artist: </p>
                     <p>Selected song Monthly Listeners: </p>
