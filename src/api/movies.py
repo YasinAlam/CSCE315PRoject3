@@ -229,7 +229,7 @@ def selectMovie(movie):
     newData = []
     found = False
     for i in range(len(oldData)):
-        if(oldData[i]['filmName'] == movie):
+        if(oldData[i]['filmName'].lower() == movie.lower()):
             newData.append(oldData[i])
             found = True
 
