@@ -102,16 +102,25 @@ def nearbyCinemas(queryDate):
     cinemaNames = []
     cinemaLogos = []
     cinemaAddresses = []
+    cinemaCities = []
+    cinemaStates = []
 
     for i in result["cinemas"]:
         cinemaIDs.append(i["cinema_id"])
         cinemaNames.append(i["cinema_name"])
         cinemaDistances.append(i["distance"])
         cinemaLogos.append(i["logo_url"])
-        cinemaAddresses.append({"address": i["address"], "city": i["city"], "state": i["state"]})
+        cinemaAddresses.append(i["address"])
+        cinemaCities.append(i["city"])
+        cinemaStates.append(i["state"])
 
-    cinemaResult = {"cinemaIDs" : cinemaIDs, "cinemaDistances" : cinemaDistances, "cinemaNames" : cinemaNames,
-              "cinemaLogos" : cinemaLogos, "cinemaAddresses" : cinemaAddresses}
+    cinemaResult = []
+    for i in range(len(cinemaStates)):
+        cinemaResult.append({"cinemaIDs" : cinemaIDs, "cinemaDistances" : cinemaDistances[i],
+                             "cinemaNames" : cinemaNames[i], "cinemaLogos" : cinemaLogos[i],
+                             "cinemaAddresses" : cinemaAddresses[i], "cinemaCities" : cinemaCities[i],
+                             "cinemaStates" : cinemaStates[i]})
+
     writeToFile(cinemaResult,"nearbyCinemas")
 
 #*************************************Get all showtimes for provided cinemas*************************************#

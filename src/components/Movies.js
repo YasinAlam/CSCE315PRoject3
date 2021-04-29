@@ -3,8 +3,9 @@ import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostData from '../data/nowPlaying.json';
-import TheaterData from '../data/theater.json';
- 
+import TheaterData from '../data/nearbyCinemas.json';
+
+
 class MyInputBlock extends Component {
     constructor(props){
         super(props)
@@ -19,7 +20,7 @@ class MyInputBlock extends Component {
     }
 
     handleChange = (event) =>{
-         if (this.props.onChange) this.props.onChange(event)  
+         if (this.props.onChange) this.props.onChange(event)
     }
     componentDidMount(){
         this.focusTextInput()
@@ -29,10 +30,10 @@ class MyInputBlock extends Component {
         return (
             <div>
           <p><input ref={this.setTextInputRef} type='text' placeholder='Zip Code'  name={this.props.inputLocation} onChange={this.handleChange}/></p>
-          
+
 
             <p><input ref={this.setTextInputRef} type='text' placeholder='Movie'  name={this.props.inputMovie} onChange={this.handleChange}/></p>
-            
+
             </div>
       )
     }
@@ -54,6 +55,30 @@ class Movies extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
+
+        //Create variables for Latitude and Longitude
+        var lat, long, location;
+
+        //Get Nearby theaters and update Movies Playing right now
+        if(data.movie === ''){
+            let request = '/api/location/' + data.location
+            fetch(request)
+                .then(res => res.json())
+                .then(data => {lat = data.latitude; long = data.longitude})
+                .then(() => {console.log(lat);
+                             console.log(long);
+                             let location = "/api/movieglu/updateLocation/" + lat + "/" + long;
+                             fetch(location).then(() => {
+                                 fetch('/api/movieglu/nowplaying');
+                                 fetch('/api/movieglu/cinemas/2021-04-25');
+                                 })
+                             })
+            console.log("All Movies")
+        }
+        //Get nearby theaters and specific Movies Playing right now
+        else{
+        console.log(data.movie)
+        }
         console.log("Final data is", data)
     }
 
@@ -101,7 +126,7 @@ class Movies extends Component {
     return (
       <div>
         <Container>
-            
+
             <Row>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#76b1c241", padding: "10px", marginBottom: "10px"}}>
@@ -109,7 +134,7 @@ class Movies extends Component {
                  <p>Selected Movie: {movie}</p>
                  <form onSubmit={this.handleSubmit}>
                     <MyInputBlock onChange={this.handleInputChange} inputLocation="location" inputMovie='movie' />
-                   
+
                     <p><button>Search</button></p>
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
@@ -122,16 +147,17 @@ class Movies extends Component {
                     <p>Selected movie Synopsis: </p>
                     <p>Movie ticket purchase link: </p>
                  </div>
-                 
+
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px"}}>
                     <h2>Local Theaters</h2>
                     {TheaterData.map((theaterDetail, index) => {
                         return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                            <h3>{theaterDetail.name}</h3>
-                            <p>Address: {theaterDetail.address}, {theaterDetail.city}, {theaterDetail.state}, {theaterDetail.zip_code} </p>
-                            <p>Showtimes: {theaterDetail.showtime_day} at {theaterDetail.showtimes}</p>
+                            <h3>{theaterDetail.cinemaNames}</h3>
+                             <img src= {theaterDetail.cinemaLogos} height = {100} width = {100}/>
+                            <p>Address: {theaterDetail.cinemaAddresses}, {theaterDetail.cinemaCities}, {theaterDetail.cinemaStates}</p>
+                            <p>Distance: {theaterDetail.cinemaDistances} Miles</p>
                         </div>
                     })}
                 </div>
@@ -153,12 +179,12 @@ class Movies extends Component {
                     </div>
                 </Col>
             </Row>
-            
+
 </Container>
         {/* <Container>
             <Row>
                 <Col>
-                
+
                 </Col>
             </Row>
         </Container> */}
