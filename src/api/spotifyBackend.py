@@ -168,6 +168,7 @@ def getTopCharts():
     # GET request with proper header for all playlists with provided name
     result = requests.get(BASE_URL + 'search/', headers=headers, params={'q': "Top 50 - USA", 'type': 'playlist'})
     result = result.json()
+    writeToFile(result,"ignore")
     playlistID = result['playlists']['items'][0]['id']
 
     # GET request with proper header for all playlists with provided name
