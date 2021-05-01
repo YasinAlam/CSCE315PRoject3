@@ -152,10 +152,12 @@ def getAllArtistsWithName(artistInput = None):
     sortedTrackReleaseDate = [trackReleaseDate for (trackPopularityArray, trackReleaseDate) in sorted(zip(
                         trackPopularityArray, trackReleaseDate), key=lambda pair: pair[0],reverse = True)]
     sortedpopularityList = sorted(trackPopularityArray,reverse=True)
+    artistPopularity = int(sum(sortedpopularityList)/len(sortedpopularityList))
 
     result = []
     for i in range(len(sortedTrackReleaseDate)):
-        result.append({"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0], "artistGenre" :artistGenreArray[0],
+        result.append({"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0],
+                       "artistPopularity" : artistPopularity, "artistGenre" :artistGenreArray[0],
               "trackNameArray" : sortedTrackList[i], "trackPopularityArray" : sortedpopularityList[i],
               "trackLength" : sortedTrackLength[i], "trackReleaseDate" : sortedTrackReleaseDate[i]})
     writeToFile(result,"allTracks")
@@ -186,7 +188,7 @@ def getTopCharts():
         if(count == 5):
             break
         artistNames.append(i['track']['artists'][0]['name'])
-        albumNames.append(i['track']['album']['name'])
+        albumNames.append("Album: " + i['track']['album']['name'])
         albumImages.append(i['track']['album']['images'][0]['url'])
         songNames.append(i['track']['name'])
         songPopularities.append(i['track']['popularity'])
@@ -206,5 +208,23 @@ def writeToFile(result,name):
     with open(name, 'w') as outfile:
         json.dump(result, outfile)
 
+
+@spotify.route('/api/spotify/select')
+def selectMovie():
+    oldData = json.load(open("src/data/allTracks.json"))
+
+    newData = []
+    genres = "Genres: "
+    for i in oldData[0]["artistGenre"]:
+        genres+=(i + ', ')
+    newData.append({"artistName" : oldData[0]["artistName"], "songName" : oldData[0]["artistName"],
+                    "songPopularity" : oldData[0]["artistPopularity"], "albumImage" : oldData[0]["artistImage"],
+                    "albumName": genres.title()})
+
+
+    with open('src/data/TopCharts.json', 'w') as newFile:
+        json.dump(newData, newFile)
+
+    return(jsonify({'Test' : 'Test'}))
 
 

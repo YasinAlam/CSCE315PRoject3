@@ -16,16 +16,30 @@ class Songs extends Component {
         }
         this.inputFullNameRef = React.createRef()
         this.inputEmailRef = React.createRef()
-        fetch('/api/spotify/topresults')
+//        fetch('/api/spotify/topresults')
     }
 
 
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
+
+        //Resets CSS to artist view
         fetch('/api/seecss')
+
+        //Get Bandsintown Data
         let request = '/api/bandsintown/' + data.myFullName + '/events/future'
         fetch(request);
+
+//        Get Spotify Data
+        request = '/api/spotify/search/' + data.myFullName
+        fetch(request)
+            .then(() => {
+                //Reset Data file to have queried artist
+                request = '/api/spotify/select'
+                fetch(request);
+                         })
+
         // console.log(this.inputFullNameRef.current.value)
 //        this.setState({
 //            hidden:false
@@ -79,8 +93,11 @@ class Songs extends Component {
                 itemvalues: [{}]
             });
 
+            //Resets CSS, Bandsintown, and Spotify files to normal view
             fetch('/api/bandsintown/reset');
             fetch('/api/hidecss');
+            fetch('/api/spotify/topresults')
+
             const data = this.state
             console.log("Final data is", data)
 //            var x = document.getElementById("allTracks");
@@ -138,7 +155,7 @@ class Songs extends Component {
                             <img src= {topChartsDetail.albumImage} height = {270} width = {270}/>
                             <p>Artist: {topChartsDetail.artistName}</p>
                             <p>Popularity: {topChartsDetail.songPopularity}</p>
-                            <p>Album: {topChartsDetail.albumName}</p>
+                            <p>{topChartsDetail.albumName}</p>
                         </div>
                     })}
                     </div>
