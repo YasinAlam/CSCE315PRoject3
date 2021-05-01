@@ -34,6 +34,10 @@ function App() {
     fetch('/api/spotify/topresults');
   }, []);
 
+  useEffect(() => {
+    fetch('/api/hidecss');
+  }, []);
+
 //  //MovieGlu API Testings
 //  useEffect(() => {
 //    fetch('/api/movieglu/nowplaying');

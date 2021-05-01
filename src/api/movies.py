@@ -125,7 +125,7 @@ def nearbyCinemas(queryDate):
 
 #*************************************Get all showtimes for provided cinemas*************************************#
     filmsInCinemas = {}
-    queryDate = '2021-04-29' #Comment out when not using Sandbox
+    queryDate = '2021-05-01' #Comment out when not using Sandbox
     #Goes through every cinema and adds all information related to that cinema to an array
     for cinema in cinemaIDs:
         #GET request with proper header for showtimes for every movie

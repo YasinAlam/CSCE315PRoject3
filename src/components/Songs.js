@@ -17,13 +17,13 @@ class Songs extends Component {
         this.inputFullNameRef = React.createRef()
         this.inputEmailRef = React.createRef()
         fetch('/api/spotify/topresults')
-//        fetch('/api/bandsintown/reset');
     }
 
 
     handleSubmit = (event) => {
         event.preventDefault()
         const data = this.state
+        fetch('/api/seecss')
         let request = '/api/bandsintown/' + data.myFullName + '/events/future'
         fetch(request);
         // console.log(this.inputFullNameRef.current.value)
@@ -31,9 +31,9 @@ class Songs extends Component {
 //            hidden:false
 //        });
         console.log("Final data is", data)
-        var x = document.getElementById("allTracks");
+//        var x = document.getElementById("allTracks");
 //        if (x.style.display === "none") {
-        x.style.display = "block";
+//        x.style.display = "block";
 //        } else {
 //          x.style.display = "none";
 //        }
@@ -48,14 +48,14 @@ class Songs extends Component {
        this.setState({
            [event.target.name]: event.target.value
        })
-       if(this.state.submitted === false){
-           var x = document.getElementById("allTracks");
-           x.style.display = "none";
-       }
-       else{
-           var x = document.getElementById("allTracks");
-           x.style.display = "block";
-       }
+//       if(this.state.submitted === false){
+//           var x = document.getElementById("allTracks");
+//           x.style.display = "none";
+//       }
+//       else{
+//           var x = document.getElementById("allTracks");
+//           x.style.display = "block";
+//       }
 
        console.log(this.state.submitted)
     }
@@ -69,7 +69,6 @@ class Songs extends Component {
             //Clear from top text area
             this.setState({
                 myFullName: '',
-                hidden: true
             })
 
             //Clear from text fields
@@ -81,14 +80,15 @@ class Songs extends Component {
             });
 
             fetch('/api/bandsintown/reset');
+            fetch('/api/hidecss');
             const data = this.state
             console.log("Final data is", data)
-            var x = document.getElementById("allTracks");
-            x.style.display = "none";
+//            var x = document.getElementById("allTracks");
+//            x.style.display = "none";
     }
      componentDidMount(){
-         var x = document.getElementById("allTracks");
-            x.style.display = "none";
+//         var x = document.getElementById("allTracks");
+//         x.style.display = "none";
      }
 
   render () {

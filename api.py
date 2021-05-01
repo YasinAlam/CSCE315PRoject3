@@ -20,3 +20,30 @@ def index():
 @app.route('/favicon.ico', methods=["GET"])
 def favicon():
     return app.send_static_file('favicon.ico')
+
+
+@app.route('/api/hidecss')
+def resetCSS():
+    oldData = open("src/original.css")
+    lines = oldData.readlines()
+    # lines = lines[:-3]
+    oldData.close()
+
+    with open('src/app.css', 'w') as newFile:
+        for item in lines:
+            newFile.write("%s" % item)
+
+    return (jsonify({'Test': 'Test'}))
+
+@app.route('/api/seecss')
+def toggleCSS():
+    oldData = open("src/original.css")
+    lines = oldData.readlines()
+    lines = lines[:-3]
+    oldData.close()
+
+    with open('src/app.css', 'w') as newFile:
+        for item in lines:
+            newFile.write("%s" % item)
+
+    return (jsonify({'Test': 'Test'}))
