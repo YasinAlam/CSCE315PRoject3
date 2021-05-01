@@ -66,14 +66,18 @@ def nowPlaying():
         result = requests.get(BASE_URL + 'filmDetails/', headers=headers, params={'n': 25, "film_id": i})
         result = result.json()
 
-        movieRating.append(result["review_stars"])
+        movieRating.append(str(result["review_stars"])+'/5')
         movieRuntime.append(result["duration_mins"])
         movieGenre.append(result["genres"][0]["genre_name"])
 
         result = requests.get(BASE_URL + 'images/', headers=headers, params={"film_id": i})
-        result = result.json()
+        try:
+            result = result.json()
+            movieImage.append(result["poster"]["1"]["medium"]["film_image"])
+        except:
+            movieImage.append('https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/'
+                              '000/105/089/datas/original.jpg')
 
-        movieImage.append(result["poster"]["1"]["medium"]["film_image"])
 
     # print(filmSynop)
     # print(filmName)
@@ -82,7 +86,7 @@ def nowPlaying():
     # print(filmID)
 
     result = []
-    for i in range(len(filmID)):
+    for i in range(len(movieImage)):
         result.append({"filmSynop" : filmSynop[i], "filmName" : filmName[i], "releaseDate" : releaseDate[i],
                        "filmRating" : filmRating[i], "filmID" :filmID[i], "movieRating" : movieRating[i],
                        "movieGenre" : movieGenre[i], "movieRuntime" : movieRuntime[i], "movieImage" : movieImage[i]})

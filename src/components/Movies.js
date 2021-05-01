@@ -170,7 +170,7 @@ class Movies extends Component {
                             <p>Release Date: {postDetail.releaseDate}</p>
                             <p>Runtime: {postDetail.movieRuntime} Minutes</p>
                             <p>Genre: {postDetail.movieGenre}</p>
-                            <p>Rating: {postDetail.movieRating}/5</p>
+                            <p>Rating: {postDetail.movieRating}</p>
                             <p>Synopsis: {postDetail.filmSynop}</p>
                         </div>
                     })}
