@@ -5,15 +5,19 @@ import { Container } from 'react-bootstrap';
 import topCharts from '../data/TopCharts.json';
 import ConcertData from '../data/futureEvents.json';
 import songData from '../data/allTracks.json';
+import thirdTitle from '../data/thirdTitle.json';
 
 class Songs extends Component {
     constructor(props){
         super(props)
+
         this.state = {
             myFullName: '',
             myContent: '',
-            submitted: false
+            submitted: false,
+            thirdTitle: thirdTitle.name
         }
+
         this.inputFullNameRef = React.createRef()
         this.inputEmailRef = React.createRef()
 //        fetch('/api/spotify/topresults')
@@ -31,15 +35,13 @@ class Songs extends Component {
         let request = '/api/bandsintown/' + data.myFullName + '/events/future'
         fetch(request);
 
-//        Get Spotify Data
+//      Get Spotify Data
         request = '/api/spotify/search/' + data.myFullName
         fetch(request)
             .then(() => {
                 //Reset Data file to have queried artist
-                request = '/api/spotify/select'
-                fetch(request);
-                         })
-
+                fetch('/api/spotify/select')
+             })
         // console.log(this.inputFullNameRef.current.value)
 //        this.setState({
 //            hidden:false
@@ -51,7 +53,7 @@ class Songs extends Component {
 //        } else {
 //          x.style.display = "none";
 //        }
-         this.setState({submitted: true});
+         this.setState({thirdTitle: "Search Results"});
     }
 
     handleInputChange = (event) => {
@@ -102,6 +104,7 @@ class Songs extends Component {
             console.log("Final data is", data)
 //            var x = document.getElementById("allTracks");
 //            x.style.display = "none";
+            this.setState({thirdTitle: "Top Songs of the Month:"});
     }
      componentDidMount(){
 //         var x = document.getElementById("allTracks");
@@ -110,6 +113,7 @@ class Songs extends Component {
 
   render () {
       const {myFullName} = this.state
+      const {thirdTitle} = this.state
 
     return (
       <div>
@@ -148,7 +152,7 @@ class Songs extends Component {
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                    <h2>Top Songs of the Month: </h2>
+                    <h2>{thirdTitle}</h2>
                     {topCharts.map((topChartsDetail, index) => {
                         return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{topChartsDetail.songName}</h3>

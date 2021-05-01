@@ -31,6 +31,9 @@ headers = {
 #Set Base URL of all Spotify API endpoints
 BASE_URL = 'https://api.spotify.com/v1/'
 
+#Set the name of the third Column
+name = "Top Songs of the Month:"
+
 #*************************************Get all Artists with provided name*************************************#
 @spotify.route('/api/spotify/search/<artistInput>')
 def getAllArtistsWithName(artistInput = None):
@@ -200,6 +203,11 @@ def getTopCharts():
          "songName": songNames[i], "songPopularity": songPopularities[i]})
 
     writeToFile(result,"TopCharts")
+
+    global name
+    name = "Top Songs of the Month:"
+    updateName()
+
     return jsonify()
 
 def writeToFile(result,name):
@@ -210,7 +218,7 @@ def writeToFile(result,name):
 
 
 @spotify.route('/api/spotify/select')
-def selectMovie():
+def selectArtist():
     oldData = json.load(open("src/data/allTracks.json"))
 
     newData = []
@@ -225,6 +233,15 @@ def selectMovie():
     with open('src/data/TopCharts.json', 'w') as newFile:
         json.dump(newData, newFile)
 
+    global name
+    name = "Search Results:"
+    updateName()
+
     return(jsonify({'Test' : 'Test'}))
 
+
+def updateName():
+    global name
+    result = {"name" : name}
+    writeToFile(result,"thirdTitle")
 
