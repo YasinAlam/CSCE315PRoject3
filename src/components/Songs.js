@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
@@ -168,13 +169,29 @@ class Songs extends Component {
             <Row id ="allTracks">
                 <Col>
                     <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                    <h2>Top Songs of the Month: </h2>
-                    {songData.map((songDetail, index) => {
-                        return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                            <p>Popularity: {songDetail.songPopularity}</p>
-                            <p>Album: {songDetail.albumName}</p>
-                        </div>
-                    })}
+                        <h2>All Songs by {songData[0].artistName}: </h2>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Song</th>
+                                <th>Popularity</th>
+                                <th>Length</th>
+                                <th>Release Date</th>
+                                </tr>
+                            </thead>
+                            {songData.map((songDetail, index) => {
+                            return <tbody>
+                                    <tr>
+                                      <td>{songDetail.n}</td>
+                                      <td>{songDetail.trackNameArray}</td>
+                                      <td>{songDetail.trackPopularityArray}</td>
+                                      <td>{songDetail.trackLength}</td>
+                                      <td>{songDetail.trackReleaseDate}</td>
+                                    </tr>
+                                  </tbody>
+                            })}
+                        </Table>
                     </div>
                 </Col>
             </Row>

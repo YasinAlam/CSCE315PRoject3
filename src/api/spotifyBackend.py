@@ -137,8 +137,10 @@ def getAllArtistsWithName(artistInput = None):
     for i in trackResult:
         for j in i["tracks"]:
             trackPopularityArray.append(j["popularity"])
-            minutes = int(j["duration_ms"] / 1000 / 60)
-            seconds = int(j["duration_ms"] / 1000 % 60)
+            minutes = int((j["duration_ms"] /(1000*60))%60)
+            seconds = int((j["duration_ms"] / 1000) % 60)
+            if(len(str(seconds))==1):
+                seconds = '0' + str(seconds)
             trackLength.append(str(minutes)+":"+str(seconds))
             trackReleaseDate.append(j["album"]["release_date"])
 
@@ -162,7 +164,7 @@ def getAllArtistsWithName(artistInput = None):
         result.append({"artistName" : artistNameArray[0], "artistImage" : artistImageArray[0],
                        "artistPopularity" : artistPopularity, "artistGenre" :artistGenreArray[0],
               "trackNameArray" : sortedTrackList[i], "trackPopularityArray" : sortedpopularityList[i],
-              "trackLength" : sortedTrackLength[i], "trackReleaseDate" : sortedTrackReleaseDate[i]})
+              "trackLength" : sortedTrackLength[i], "trackReleaseDate" : sortedTrackReleaseDate[i], "n" : i+1})
     writeToFile(result,"allTracks")
     return jsonify(result)
 
