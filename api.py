@@ -37,9 +37,8 @@ def resetCSS():
 
 @app.route('/api/seecss')
 def toggleCSS():
-    oldData = open("src/original.css")
+    oldData = open("src/new.css")
     lines = oldData.readlines()
-    lines = lines[:-3]
     oldData.close()
 
     with open('src/app.css', 'w') as newFile:
