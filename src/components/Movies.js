@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostData from '../data/nowPlaying.json';
 import TheaterData from '../data/nearbyCinemas.json';
-import thirdTitle from '../data/thirdTitle.json';
 
 
 class MyInputBlock extends Component {
@@ -47,8 +46,7 @@ class Movies extends Component {
         this.state = {
             location: '',
             movie: '',
-            email: '',
-            thirdTitle: thirdTitle.trailer
+            email: ''
         }
         this.inputLocationRef = React.createRef()
         this.inputMovieRef = React.createRef()
@@ -132,7 +130,6 @@ class Movies extends Component {
   render () {
       const {location} = this.state
       const {movie} = this.state
-      const {thirdTitle} = this.state
     return (
       <div>
         <Container>
@@ -155,12 +152,13 @@ class Movies extends Component {
                 <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px"}}>
                     <h2>Local Theaters</h2>
                     {TheaterData.map((theaterDetail, index) => {
-                        return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
+                        return <div id = "theaters" style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{theaterDetail.cinemaNames}</h3>
                              <img src= {theaterDetail.cinemaLogos} height = {100} width = {100}/>
                             <p>Address: {theaterDetail.cinemaAddresses}, {theaterDetail.cinemaCities}, {theaterDetail.cinemaStates}</p>
                             <p>Distance: {theaterDetail.cinemaDistances} Miles</p>
-                            {a(theaterDetail.showTimes)}
+                            {theaterDetail.showTimes.map(x => createButtons(x,theaterDetail.cinemaIDs,theaterDetail.filmID))}
+
                         </div>
                     })}
                 </div>
@@ -195,13 +193,39 @@ class Movies extends Component {
     )
   }
 }
-    function a(showTimes) {
-        let str = '' ;
-        for (let i in showTimes){
-            str += showTimes[i]+ ', ';
-        }
+//    function a(showTimes) {
+//        let str = '' ;
+//        for (let i in showTimes){
+//            str += showTimes[i]+ ', ';
+//        }
+//
+//        str = str.replace(/,\s*$/, "");
+//        return (<p>Timings: {str}</p>)
+//    }
 
-        str = str.replace(/,\s*$/, "");
-        return (<p>Timings: {str}</p>)
-    }
+function createButtons(data,cinemaID,filmID) {
+    if(data !== "Please choose a movie to see timings" && data !== "No timings found"){
+        return (
+        <button onClick={() => getPurchaseLink(data,cinemaID,filmID)}>
+                {data}
+        </button>
+    );}
+    else{
+        return(
+        <button onClick={() => console.log('hello')}>
+            {data}
+        </button>
+        );}
+}
+
+function getPurchaseLink(data,cinemaID,filmID){
+    let request = '/api/movieglu/films/purchase/' + data + '/' + cinemaID + '/' + filmID
+    var link;
+    fetch(request)
+        .then(res => res.json())
+        .then(data => {link = data.URL;})
+        .then(() => {return window.open(link, "_blank");
+                     })
+}
+
 export default Movies

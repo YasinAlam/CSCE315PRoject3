@@ -129,7 +129,8 @@ def nearbyCinemas(queryDate):
 
 #*************************************Get all showtimes for provided cinemas*************************************#
     filmsInCinemas = {}
-    queryDate = '2021-05-01' #Comment out when not using Sandbox
+
+    queryDate = ISO_8601_time[0:10] #Comment out when not using Sandbox
     count = 0
     #Goes through every cinema and adds all information related to that cinema to an array
     for cinema in cinemaIDs:
@@ -175,13 +176,13 @@ def nearbyCinemas(queryDate):
 
 
 #*************************************Get Purchase link given date *************************************#
-@movieglu.route('/api/movieglu/films/purchase/<date>/<time>/<cinemaID>/<filmID>')
-def getPurchaseLink(date,time,cinemaID,filmID):
+@movieglu.route('/api/movieglu/films/purchase/<time>/<cinemaID>/<filmID>')
+def getPurchaseLink(time,cinemaID,filmID):
     #Sandbox Information
     date = ISO_8601_time[0:10]
-    time = "19:50"
-    cinemaID = 10636
-    filmID = 7772
+    # time = "19:50"
+    # cinemaID = 10636
+    # filmID = 7772
 
 
     #GET request with proper header for showtimes for every movie
@@ -193,7 +194,7 @@ def getPurchaseLink(date,time,cinemaID,filmID):
     purchaseURL = result["url"]
 
     result = {"URL" : purchaseURL}
-    writeToFile(result,"purchaseURL")
+    # writeToFile(result,"purchaseURL")
     return jsonify(result)
 
 
@@ -266,6 +267,7 @@ def addShowtimes(movie):
     for i in cinemaData:
         showtimes = []
         indexOfFilm = 0
+        filmID = ''
         count = 0
         found = False
         cinemaResult = timingData[i['cinemaNames']]
@@ -280,6 +282,7 @@ def addShowtimes(movie):
             for j in cinemaResult['allFilmTimes'][indexOfFilm]:
                 showtimes.append(str([j][0]))
             i['showTimes'] = showtimes
+            i['filmID'] = cinemaResult['filmIDs'][indexOfFilm]
         else:
             i['showTimes'] = ["No timings found"]
 
