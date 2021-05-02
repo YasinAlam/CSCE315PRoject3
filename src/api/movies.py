@@ -13,26 +13,26 @@ APP_ID = '4065c748e821bd17f026e5340fb780d6'
 time = datetime.datetime.now()
 ISO_8601_time = time.isoformat()
 #Sandbox Environment
-# headers = {
-#     'client': 'TEXA_1',
-#     'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-#     'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-#     'territory' : 'XX',
-#     'api-version' :	'v200',
-#     'geolocation' :	'-22.0;14.0',
-#     'device-datetime' : ISO_8601_time
-# }
-
-# Normal Environment
 headers = {
-    'client': 'DEZE',
-    'x-api-key' : 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
-    'authorization' : 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
-    'territory' : 'US',
+    'client': 'TEXA_1',
+    'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+    'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+    'territory' : 'XX',
     'api-version' :	'v200',
-    'geolocation' :	'',
+    'geolocation' :	'-22.0;14.0',
     'device-datetime' : ISO_8601_time
 }
+
+# Normal Environment
+# headers = {
+#     'client': 'DEZE',
+#     'x-api-key' : 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
+#     'authorization' : 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
+#     'territory' : 'US',
+#     'api-version' :	'v200',
+#     'geolocation' :	'',
+#     'device-datetime' : ISO_8601_time
+# }
 
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
@@ -225,27 +225,27 @@ def updateHeaders(lat, longi):
     time = datetime.datetime.now()
     ISO_8601_time = time.isoformat()
     # Sandbox Environment
-    # headers = {
-    #     'client': 'TEXA_1',
-    #     'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-    #     'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-    #     'territory': 'XX',
-    #     'api-version': 'v200',
-    #     'geolocation': '-22.0;14.0',
-    #     'device-datetime': ISO_8601_time
-    # }
+    headers = {
+        'client': 'TEXA_1',
+        'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+        'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+        'territory': 'XX',
+        'api-version': 'v200',
+        'geolocation': '-22.0;14.0',
+        'device-datetime': ISO_8601_time
+    }
 
     location = lat + ";" + longi
     # # Normal Environment
-    headers = {
-        'client': 'DEZE',
-        'x-api-key': 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
-        'authorization': 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
-        'territory': 'US',
-        'api-version': 'v200',
-        'geolocation': location,
-        'device-datetime': ISO_8601_time
-    }
+    # headers = {
+    #     'client': 'DEZE',
+    #     'x-api-key': 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
+    #     'authorization': 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
+    #     'territory': 'US',
+    #     'api-version': 'v200',
+    #     'geolocation': location,
+    #     'device-datetime': ISO_8601_time
+    # }
     return jsonify({"Latitude" : lat, "Longitude" : longi})
 
 @movieglu.route('/api/movieglu/selectMovie/<movie>')
