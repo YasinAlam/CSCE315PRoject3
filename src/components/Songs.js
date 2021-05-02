@@ -128,8 +128,12 @@ class Songs extends Component {
                  </form>
                  <p><button onClick = {(e) => {this.handleSubmit(e)}}>Search </button></p>
                 <p><button onClick= {(e) => {this.handleClearClick(e)}}>Clear</button></p>
-
                  </div>
+                 <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
+                    <h2>Instructions: </h2>
+                    <h5>Enter the name of the artist and hit Search</h5>
+                    <h5>Hit Clear to see Top Charts</h5>
+                </div>
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px"}}>

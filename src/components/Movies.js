@@ -165,7 +165,12 @@ class Movies extends Component {
                     <p><button onClick={this.handleClearClick}>Clear</button></p>
                  </form>
                  </div>
-
+                <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
+                    <h2>Instructions: </h2>
+                    <h6>To view movies Now Playing, enter your Zip Code</h6>
+                    <h6>To view timings, enter a specific movie and Zip Code</h6>
+                    <h6>Hit clear to reset app</h6>
+                </div>
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px"}}>
