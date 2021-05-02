@@ -43,6 +43,10 @@ def getAllArtistsWithName(artistInput = None):
     #GET request with proper header for all artists with provided name
     result = requests.get(BASE_URL + 'search/', headers=headers, params={'q' : artistInput,'type' : 'artist'})
     result = result.json()
+    if('error' in result):
+        updateHeaders()
+        result = requests.get(BASE_URL + 'search/', headers=headers, params={'q': artistInput, 'type': 'artist'})
+        result = result.json()
 
     #Parse result and get artist Name, ID, Genres, and Image
     artistNameArray = []
@@ -79,6 +83,11 @@ def getAllArtistsWithName(artistInput = None):
     result = requests.get(BASE_URL + 'artists/' + artistID + '/albums', headers=headers)
     result = result.json()
 
+    if('error' in result):
+        updateHeaders()
+        result = requests.get(BASE_URL + 'artists/' + artistID + '/albums', headers=headers)
+        result = result.json()
+
     #Parse result and get album Name and ID
     albumNameArray = []
     albumIDArray = []
@@ -99,6 +108,11 @@ def getAllArtistsWithName(artistInput = None):
     #GET request with proper header to find all songs given albums
     result = requests.get(BASE_URL + 'albums/', headers=headers, params={'ids':albumIDArrayToStr})
     result = result.json()
+
+    if ('error' in result):
+        updateHeaders()
+        result = requests.get(BASE_URL + 'albums/', headers=headers, params={'ids': albumIDArrayToStr})
+        result = result.json()
 
     #Parse result and get track Names and ID's
     trackNameArray = []
@@ -129,6 +143,11 @@ def getAllArtistsWithName(artistInput = None):
     for i in range(len(combineTrackIDArray)):
         result = requests.get(BASE_URL + 'tracks/', headers=headers, params={'ids':combineTrackIDArray[i]})
         trackResult.append(result.json())
+
+        if ('error' in result):
+            updateHeaders()
+            result = requests.get(BASE_URL + 'tracks/', headers=headers, params={'ids': combineTrackIDArray[i]})
+            trackResult.append(result.json())
 
     #Parse result and get popularity of each track
     trackPopularityArray = []
@@ -175,12 +194,23 @@ def getTopCharts():
     # GET request with proper header for all playlists with provided name
     result = requests.get(BASE_URL + 'search/', headers=headers, params={'q': "Top 50 - USA", 'type': 'playlist'})
     result = result.json()
+
+    if ('error' in result):
+        updateHeaders()
+        result = requests.get(BASE_URL + 'search/', headers=headers, params={'q': "Top 50 - USA", 'type': 'playlist'})
+        result = result.json()
+
     writeToFile(result,"ignore")
     playlistID = result['playlists']['items'][0]['id']
 
     # GET request with proper header for all playlists with provided name
     result = requests.get(BASE_URL + 'playlists/'+playlistID, headers=headers)
     result = result.json()
+
+    if ('error' in result):
+        updateHeaders()
+        result = requests.get(BASE_URL + 'playlists/' + playlistID, headers=headers)
+        result = result.json()
 
     #Get top 5 results from playlist
     artistNames = []
@@ -247,3 +277,28 @@ def updateName():
     result = {"name" : name}
     writeToFile(result,"thirdTitle")
 
+def updateHeaders():
+    global headers
+    global access_token
+    global CLIENT_ID
+    global CLIENT_SECRET
+    global scopes
+    global AUTH_URL
+
+    # POST
+    auth_response = requests.post(AUTH_URL, {
+        'grant_type': 'client_credentials',
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    })
+
+    # Convert the response to JSON
+    auth_response_data = auth_response.json()
+
+    # Save the access token
+    access_token = auth_response_data['access_token']
+
+    # Create Authorization Header
+    headers = {
+        'Authorization': 'Bearer {token}'.format(token=access_token)
+    }
