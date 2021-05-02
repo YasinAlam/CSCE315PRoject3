@@ -13,26 +13,26 @@ APP_ID = '4065c748e821bd17f026e5340fb780d6'
 time = datetime.datetime.now()
 ISO_8601_time = time.isoformat()
 #Sandbox Environment
-headers = {
-    'client': 'TEXA_1',
-    'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-    'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-    'territory' : 'XX',
-    'api-version' :	'v200',
-    'geolocation' :	'-22.0;14.0',
-    'device-datetime' : ISO_8601_time
-}
-
-# Normal Environment
 # headers = {
 #     'client': 'TEXA_1',
-#     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
-#     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
-#     'territory' : 'US',
+#     'x-api-key' : 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+#     'authorization' : 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+#     'territory' : 'XX',
 #     'api-version' :	'v200',
-#     'geolocation' :	'',
+#     'geolocation' :	'-22.0;14.0',
 #     'device-datetime' : ISO_8601_time
 # }
+
+# Normal Environment
+headers = {
+    'client': 'DEZE',
+    'x-api-key' : 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
+    'authorization' : 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
+    'territory' : 'US',
+    'api-version' :	'v200',
+    'geolocation' :	'',
+    'device-datetime' : ISO_8601_time
+}
 
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
@@ -42,7 +42,7 @@ BASE_URL = "https://api-gate2.movieglu.com/"
 @movieglu.route('/api/movieglu/nowplaying')
 def nowPlaying():
     #GET request with proper header for all artists with provided name
-    result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 25})
+    result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 10})
     result = result.json()
 
     filmSynop = []
@@ -63,12 +63,23 @@ def nowPlaying():
         filmID.append(i["film_id"])
 
     for i in filmID:
-        result = requests.get(BASE_URL + 'filmDetails/', headers=headers, params={'n': 25, "film_id": i})
+        result = requests.get(BASE_URL + 'filmDetails/', headers=headers, params={"film_id": i})
+        # print(result, '\n')
         result = result.json()
+        # print(result, '\n')
 
-        movieRating.append(str(result["review_stars"])+'/5')
-        movieRuntime.append(result["duration_mins"])
-        movieGenre.append(result["genres"][0]["genre_name"])
+        try:
+            movieRating.append(str(result["review_stars"])+'/5')
+        except:
+            movieRating.append('N/A')
+        try:
+            movieRuntime.append(result["duration_mins"])
+        except:
+            movieRuntime.append('N/A')
+        try:
+            movieGenre.append(result["genres"][0]["genre_name"])
+        except:
+            movieGenre.append('N/A')
 
         result = requests.get(BASE_URL + 'images/', headers=headers, params={"film_id": i})
         try:
@@ -77,7 +88,6 @@ def nowPlaying():
         except:
             movieImage.append('https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/'
                               '000/105/089/datas/original.jpg')
-
 
     # print(filmSynop)
     # print(filmName)
@@ -97,8 +107,10 @@ def nowPlaying():
 @movieglu.route('/api/movieglu/cinemas/<queryDate>')
 def nearbyCinemas(queryDate):
     #GET request with proper header for all cinemas in your area
-    result = requests.get(BASE_URL + 'cinemasNearby/', headers=headers, params={'n' : 10})
+    result = requests.get(BASE_URL + 'cinemasNearby/', headers=headers, params={'n' : 5})
+    # print(result.reason)
     result = result.json()
+    # print(result)
 
     #Parse result and get Cinema ID's, Distance, Names, Logos, and addresses
     cinemaIDs = []
@@ -136,40 +148,47 @@ def nearbyCinemas(queryDate):
     for cinema in cinemaIDs:
         #GET request with proper header for showtimes for every movie
         #Change 10636 to cinema when not using Sandbox
-        result = requests.get(BASE_URL + 'cinemaShowTimes/', headers=headers, params={"cinema_id" : 10636,
-                                                                                      "date" : queryDate})
-        result = result.json()
+        try:
+            result = requests.get(BASE_URL + 'cinemaShowTimes/', headers=headers, params={"cinema_id" : cinema,
+                                                                                          "date" : queryDate})
+            # print(result)
+            result = result.json()
+            # print(result)
+            #Parse result and get Film ID's, Names, Times, and Dates
+            filmIDs = []
+            filmNames = []
+            allFilmTimes = []
+            allFilmDates = []
+            for i in result["films"]:
+                # Create temporary arrays to hold individual film times and showdates
+                individualFilmTimes = []
+                individualFilmDates = []
 
-        #Parse result and get Film ID's, Names, Times, and Dates
-        filmIDs = []
-        filmNames = []
-        allFilmTimes = []
-        allFilmDates = []
-        for i in result["films"]:
-            # Create temporary arrays to hold individual film times and showdates
-            individualFilmTimes = []
-            individualFilmDates = []
+                # Add Film ID's and Names
+                filmIDs.append(i["film_id"])
+                filmNames.append(i["film_name"])
 
-            # Add Film ID's and Names
-            filmIDs.append(i["film_id"])
-            filmNames.append(i["film_name"])
+                # Add film timings to a temp array and then append that to an array with all the timings
+                for j in i["showings"]:
+                    for k in i["showings"][j]["times"]:
+                        individualFilmTimes.append(k["start_time"])
+                        # print(k["start_time"], k["end_time"])
+                allFilmTimes.append(individualFilmTimes)
 
-            # Add film timings to a temp array and then append that to an array with all the timings
-            for j in i["showings"]:
-                for k in i["showings"][j]["times"]:
-                    individualFilmTimes.append(k["start_time"])
-                    # print(k["start_time"], k["end_time"])
-            allFilmTimes.append(individualFilmTimes)
+                # Add film dates to a temp array and then append that to an array with all the dates
+                for j in i["show_dates"]:
+                    individualFilmDates.append(j["date"])
+                    # print(j["date"])
+                allFilmDates.append(individualFilmDates)
 
-            # Add film dates to a temp array and then append that to an array with all the dates
-            for j in i["show_dates"]:
-                individualFilmDates.append(j["date"])
-                # print(j["date"])
-            allFilmDates.append(individualFilmDates)
+            filmsInCinemas[cinemaNames[count]] = {"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
+                                            "allFilmDates" : allFilmDates}
 
-        filmsInCinemas[cinemaNames[count]] = {"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
-                                        "allFilmDates" : allFilmDates}
-        count+=1
+        except:
+            filmsInCinemas[cinemaNames[count]] = {"filmIDs" : "N/A", "filmNames" : "N/A", "allFilmTimes" : "N/A",
+                                            "allFilmDates" : "N/A"}
+        finally:
+            count += 1
 
     writeToFile(filmsInCinemas,"showTimes")
     return jsonify(cinemaResult)
@@ -206,27 +225,27 @@ def updateHeaders(lat, longi):
     time = datetime.datetime.now()
     ISO_8601_time = time.isoformat()
     # Sandbox Environment
-    headers = {
-        'client': 'TEXA_1',
-        'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
-        'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
-        'territory': 'XX',
-        'api-version': 'v200',
-        'geolocation': '-22.0;14.0',
-        'device-datetime': ISO_8601_time
-    }
+    # headers = {
+    #     'client': 'TEXA_1',
+    #     'x-api-key': 'i4QRxvFIAR1fnfe2FGocd871ukDF3V6dahbxg6PG',
+    #     'authorization': 'Basic VEVYQV8xX1hYOlZLOTlHVHpyQWtwdA==',
+    #     'territory': 'XX',
+    #     'api-version': 'v200',
+    #     'geolocation': '-22.0;14.0',
+    #     'device-datetime': ISO_8601_time
+    # }
 
     location = lat + ";" + longi
     # # Normal Environment
-    # headers = {
-    #     'client': 'TEXA_1',
-    #     'x-api-key' : 'UI70SEkfbj7bKw0SUk3DiaAwk2PmsS8vaGlPYexW',
-    #     'authorization' : 'Basic VEVYQV8xOkxDNEZNRUpHc1Q4WQ==',
-    #     'territory' : 'US',
-    #     'api-version' :	'v200',
-    #     'geolocation' :	location,
-    #     'device-datetime' : ISO_8601_time
-    # }
+    headers = {
+        'client': 'DEZE',
+        'x-api-key': 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
+        'authorization': 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
+        'territory': 'US',
+        'api-version': 'v200',
+        'geolocation': location,
+        'device-datetime': ISO_8601_time
+    }
     return jsonify({"Latitude" : lat, "Longitude" : longi})
 
 @movieglu.route('/api/movieglu/selectMovie/<movie>')

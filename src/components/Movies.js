@@ -121,8 +121,22 @@ class Movies extends Component {
 
             const data = this.state
             console.log("Final data is", data)
-            fetch('/api/movieglu/nowplaying');
-            fetch('/api/movieglu/cinemas/2021-04-25');
+
+            //Create variables for Latitude and Longitude
+            var lat, long;
+
+            let request = '/api/location/' + 77840
+            fetch(request)
+                .then(res => res.json())
+                .then(data => {lat = data.latitude; long = data.longitude})
+                .then(() => {console.log(lat);
+                             console.log(long);
+                             let location = "/api/movieglu/updateLocation/" + lat + "/" + long;
+                             fetch(location).then(() => {
+                                 fetch('/api/movieglu/nowplaying');
+                                 fetch('/api/movieglu/cinemas/2021-04-25');
+                                 })
+                             })
     }
     // componentDidMount(){
 
