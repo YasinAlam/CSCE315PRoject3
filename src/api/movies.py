@@ -123,13 +123,14 @@ def nearbyCinemas(queryDate):
         cinemaResult.append({"cinemaIDs" : cinemaIDs[i], "cinemaDistances" : cinemaDistances[i],
                              "cinemaNames" : cinemaNames[i], "cinemaLogos" : cinemaLogos[i],
                              "cinemaAddresses" : cinemaAddresses[i], "cinemaCities" : cinemaCities[i],
-                             "cinemaStates" : cinemaStates[i]})
+                             "cinemaStates" : cinemaStates[i], "showTimes" : "Please choose a movie to see timings"})
 
     writeToFile(cinemaResult,"nearbyCinemas")
 
 #*************************************Get all showtimes for provided cinemas*************************************#
     filmsInCinemas = {}
     queryDate = '2021-05-01' #Comment out when not using Sandbox
+    count = 0
     #Goes through every cinema and adds all information related to that cinema to an array
     for cinema in cinemaIDs:
         #GET request with proper header for showtimes for every movie
@@ -155,7 +156,7 @@ def nearbyCinemas(queryDate):
             # Add film timings to a temp array and then append that to an array with all the timings
             for j in i["showings"]:
                 for k in i["showings"][j]["times"]:
-                    individualFilmTimes.append((k["start_time"], k["end_time"]))
+                    individualFilmTimes.append(k["start_time"])
                     # print(k["start_time"], k["end_time"])
             allFilmTimes.append(individualFilmTimes)
 
@@ -165,8 +166,9 @@ def nearbyCinemas(queryDate):
                 # print(j["date"])
             allFilmDates.append(individualFilmDates)
 
-        filmsInCinemas[cinema] = {"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
+        filmsInCinemas[cinemaNames[count]] = {"filmIDs" : filmIDs, "filmNames" : filmNames, "allFilmTimes" : allFilmTimes,
                                         "allFilmDates" : allFilmDates}
+        count+=1
 
     writeToFile(filmsInCinemas,"showTimes")
     return jsonify(cinemaResult)
@@ -244,6 +246,8 @@ def selectMovie(movie):
     with open('src/data/nowPlaying.json', 'w') as newFile:
         json.dump(newData, newFile)
 
+    addShowtimes(movie.lower())
+
     return(jsonify({'Test' : 'Test'}))
 
 
@@ -252,3 +256,34 @@ def writeToFile(result,name):
     name = "src/data/"+name+".json"
     with open(name, 'w') as outfile:
         json.dump(result, outfile)
+
+def addShowtimes(movie):
+    nearbyCinemas = open('src/data/nearbyCinemas.json', 'r+')
+    cinemaData = json.load(nearbyCinemas)
+    showTimes = open('src/data/showTimes.json')
+    timingData = json.load(showTimes)
+
+    for i in cinemaData:
+        showtimes = []
+        indexOfFilm = 0
+        count = 0
+        cinemaResult = timingData[i['cinemaNames']]
+
+        for j in cinemaResult['filmNames']:
+            if(j.lower() == movie):
+                indexOfFilm = count
+                # print(indexOfFilm, ':', movieResult)
+            count += 1
+
+        for j in cinemaResult['allFilmTimes'][indexOfFilm]:
+            showtimes.append(str([j][0]))
+
+        i['showTimes'] = showtimes
+
+    nearbyCinemas.close()
+    showTimes.close()
+
+    writeToFile(cinemaData,"nearbyCinemas")
+
+
+

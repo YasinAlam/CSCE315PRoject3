@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostData from '../data/nowPlaying.json';
 import TheaterData from '../data/nearbyCinemas.json';
+import thirdTitle from '../data/thirdTitle.json';
 
 
 class MyInputBlock extends Component {
@@ -46,7 +47,8 @@ class Movies extends Component {
         this.state = {
             location: '',
             movie: '',
-            email: ''
+            email: '',
+            thirdTitle: thirdTitle.trailer
         }
         this.inputLocationRef = React.createRef()
         this.inputMovieRef = React.createRef()
@@ -84,6 +86,7 @@ class Movies extends Component {
         var mydata = JSON.parse(data);
         }
         console.log("Final data is", data)
+
     }
 
     handleInputChange = (event) => {
@@ -129,6 +132,7 @@ class Movies extends Component {
   render () {
       const {location} = this.state
       const {movie} = this.state
+      const {thirdTitle} = this.state
     return (
       <div>
         <Container>
@@ -156,6 +160,8 @@ class Movies extends Component {
                              <img src= {theaterDetail.cinemaLogos} height = {100} width = {100}/>
                             <p>Address: {theaterDetail.cinemaAddresses}, {theaterDetail.cinemaCities}, {theaterDetail.cinemaStates}</p>
                             <p>Distance: {theaterDetail.cinemaDistances} Miles</p>
+                            <p>Timings: {theaterDetail.showTimes}</p>
+
                         </div>
                     })}
                 </div>
