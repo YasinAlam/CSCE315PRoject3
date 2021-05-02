@@ -123,7 +123,7 @@ def nearbyCinemas(queryDate):
         cinemaResult.append({"cinemaIDs" : cinemaIDs[i], "cinemaDistances" : cinemaDistances[i],
                              "cinemaNames" : cinemaNames[i], "cinemaLogos" : cinemaLogos[i],
                              "cinemaAddresses" : cinemaAddresses[i], "cinemaCities" : cinemaCities[i],
-                             "cinemaStates" : cinemaStates[i], "showTimes" : "Please choose a movie to see timings"})
+                             "cinemaStates" : cinemaStates[i], "showTimes" : ["Please choose a movie to see timings"]})
 
     writeToFile(cinemaResult,"nearbyCinemas")
 
@@ -267,18 +267,21 @@ def addShowtimes(movie):
         showtimes = []
         indexOfFilm = 0
         count = 0
+        found = False
         cinemaResult = timingData[i['cinemaNames']]
 
         for j in cinemaResult['filmNames']:
             if(j.lower() == movie):
                 indexOfFilm = count
-                # print(indexOfFilm, ':', movieResult)
+                found = True
             count += 1
 
-        for j in cinemaResult['allFilmTimes'][indexOfFilm]:
-            showtimes.append(str([j][0]))
-
-        i['showTimes'] = showtimes
+        if(found):
+            for j in cinemaResult['allFilmTimes'][indexOfFilm]:
+                showtimes.append(str([j][0]))
+            i['showTimes'] = showtimes
+        else:
+            i['showTimes'] = ["No timings found"]
 
     nearbyCinemas.close()
     showTimes.close()

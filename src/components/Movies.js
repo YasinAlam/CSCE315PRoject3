@@ -160,8 +160,7 @@ class Movies extends Component {
                              <img src= {theaterDetail.cinemaLogos} height = {100} width = {100}/>
                             <p>Address: {theaterDetail.cinemaAddresses}, {theaterDetail.cinemaCities}, {theaterDetail.cinemaStates}</p>
                             <p>Distance: {theaterDetail.cinemaDistances} Miles</p>
-                            <p>Timings: {theaterDetail.showTimes}</p>
-
+                            {a(theaterDetail.showTimes)}
                         </div>
                     })}
                 </div>
@@ -196,5 +195,13 @@ class Movies extends Component {
     )
   }
 }
+    function a(showTimes) {
+        let str = '' ;
+        for (let i in showTimes){
+            str += showTimes[i]+ ', ';
+        }
 
+        str = str.replace(/,\s*$/, "");
+        return (<p>Timings: {str}</p>)
+    }
 export default Movies
