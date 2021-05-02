@@ -7,7 +7,7 @@ import SongPage from "./Pages/SongPage"
 import * as ReactBootStrap from "react-bootstrap";
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
-import { lightTheme, darkTheme } from "./components/Themes"
+import { lightTheme, darkTheme, themeTable } from "./components/Themes"
 import logo from './images/logo.png'
 
 function App() {

@@ -169,8 +169,8 @@ class Songs extends Component {
             <Row id ="allTracks">
                 <Col>
                     <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
-                        <h2>All Songs by {songData[0].artistName}: </h2>
-                        <Table striped bordered hover>
+                        <h2 style={{color: "white"}}>All Songs by {songData[0].artistName}: </h2>
+                        <Table striped bordered hover style={{color: "white"}}>
                             <thead>
                                 <tr>
                                 <th>#</th>

@@ -74,6 +74,8 @@ a:active {
   text-decoration: underline;
 }
 
-#allTracks{
-  display: none;
+table
+{
+    table-layout:fixed;
+    width:100%;
 }
