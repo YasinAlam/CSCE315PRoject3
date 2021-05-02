@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostData from '../data/nowPlaying.json';
 import TheaterData from '../data/nearbyCinemas.json';
+import thirdTitle from '../data/thirdTitle.json';
 
 
 class MyInputBlock extends Component {
@@ -46,7 +47,8 @@ class Movies extends Component {
         this.state = {
             location: '',
             movie: '',
-            email: ''
+            email: '',
+            thirdTitle: thirdTitle.nameTwo
         }
         this.inputLocationRef = React.createRef()
         this.inputMovieRef = React.createRef()
@@ -84,6 +86,7 @@ class Movies extends Component {
         var mydata = JSON.parse(data);
         }
         console.log("Final data is", data)
+        this.setState({thirdTitle: "Selected Movie:"});
 
     }
 
@@ -137,6 +140,7 @@ class Movies extends Component {
                                  fetch('/api/movieglu/cinemas/2021-04-25');
                                  })
                              })
+            this.setState({thirdTitle: "Now Playing:"});
     }
     // componentDidMount(){
 
@@ -144,6 +148,7 @@ class Movies extends Component {
   render () {
       const {location} = this.state
       const {movie} = this.state
+      const {thirdTitle} = this.state
     return (
       <div>
         <Container>
@@ -179,7 +184,7 @@ class Movies extends Component {
                 </Col>
                 <Col>
                 <div style= {{border: "5px solid", backgroundColor: "#7a61a241", padding: "10px"}}>
-                    <h2>Movies Playing Right Now: </h2>
+                    <h2>{thirdTitle}</h2>
                     {PostData.map((postDetail, index) => {
                         return <div style= {{border: "5px solid", backgroundColor: "#2611c241", padding: "10px", marginBottom: "5px"}}>
                             <h3>{postDetail.filmName}</h3>

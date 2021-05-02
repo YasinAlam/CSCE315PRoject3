@@ -99,7 +99,7 @@ return (
         <Route path="/SongPage" component={SongPage} />
 
       </Router>
-      <button onClick={themeToggler}>TURN THE FUCKIN LIGHTS OUT</button>
+      <button onClick={themeToggler}>Dark Mode ON/OFF</button>
 </div>
 <div className = "Main-Page">
 </div>

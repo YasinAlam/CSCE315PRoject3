@@ -24,12 +24,12 @@ def favicon():
 
 @app.route('/api/hidecss')
 def resetCSS():
-    oldData = open("src/original.css")
+    oldData = open("src/original.css" , 'r')
     lines = oldData.readlines()
     # lines = lines[:-3]
     oldData.close()
 
-    with open('src/app.css', 'w') as newFile:
+    with open('src/App.css', 'w') as newFile:
         for item in lines:
             newFile.write("%s" % item)
 
@@ -37,11 +37,11 @@ def resetCSS():
 
 @app.route('/api/seecss')
 def toggleCSS():
-    oldData = open("src/new.css")
+    oldData = open("src/new.css", 'r')
     lines = oldData.readlines()
     oldData.close()
 
-    with open('src/app.css', 'w') as newFile:
+    with open('src/App.css', 'w') as newFile:
         for item in lines:
             newFile.write("%s" % item)
 

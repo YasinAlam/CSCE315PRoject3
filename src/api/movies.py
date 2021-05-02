@@ -37,12 +37,14 @@ headers = {
 #Base URL
 BASE_URL = "https://api-gate2.movieglu.com/"
 
+#Set the name of the third Column
+nameTwo = "Movies Playing Right Now:"
 
 #*************************************Get all Movies Playing right now*************************************#
 @movieglu.route('/api/movieglu/nowplaying')
 def nowPlaying():
     #GET request with proper header for all artists with provided name
-    result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 10})
+    result = requests.get(BASE_URL + 'filmsNowShowing/', headers=headers, params={'n' : 5})
     result = result.json()
 
     filmSynop = []
@@ -101,6 +103,11 @@ def nowPlaying():
                        "filmRating" : filmRating[i], "filmID" :filmID[i], "movieRating" : movieRating[i],
                        "movieGenre" : movieGenre[i], "movieRuntime" : movieRuntime[i], "movieImage" : movieImage[i]})
     writeToFile(result, "nowPlaying")
+
+    global nameTwo
+    nameTwo = "Now Playing:"
+    updateName()
+
     return jsonify()
 
 # *************************************Get all Cinemas nearby*************************************#
@@ -217,7 +224,7 @@ def getPurchaseLink(time,cinemaID,filmID):
     return jsonify(result)
 
 
-#*************************************Get Purchase link given date *************************************#
+#*************************************Update Headers *************************************#
 @movieglu.route('/api/movieglu/updateLocation/<lat>/<longi>')
 def updateHeaders(lat, longi):
     global headers
@@ -268,6 +275,10 @@ def selectMovie(movie):
 
     addShowtimes(movie.lower())
 
+    global nameTwo
+    nameTwo = "Selected Movie:"
+    updateName()
+
     return(jsonify({'Test' : 'Test'}))
 
 
@@ -311,4 +322,13 @@ def addShowtimes(movie):
     writeToFile(cinemaData,"nearbyCinemas")
 
 
+def updateName():
+    global nameTwo
+    fileName = "src/data/thirdTitle.json"
+
+    data = json.load(open(fileName, 'r'))
+    data["nameTwo"] = nameTwo
+
+    with open(fileName, 'w') as outfile:
+        json.dump(data, outfile)
 
