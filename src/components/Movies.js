@@ -167,8 +167,8 @@ class Movies extends Component {
                  </div>
                 <div style= {{border: "5px solid", backgroundColor: "#7681c241", padding: "10px"}}>
                     <h2>Instructions: </h2>
-                    <h6>To view movies Now Playing, enter your Zip Code</h6>
-                    <h6>To view timings, enter a specific movie and Zip Code</h6>
+                    <h6>Start by entering your Zip Code and hitting search. Then choose from the list of movies on the
+                    right and search for that movie to see timings.</h6>
                     <h6>Hit clear to reset app</h6>
                 </div>
                 </Col>
