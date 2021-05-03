@@ -25,13 +25,13 @@ headers = {
 
 # Normal Environment
 # headers = {
-#     'client': 'DEZE',
-#     'x-api-key' : 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
-#     'authorization' : 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
-#     'territory' : 'US',
-#     'api-version' :	'v200',
-#     'geolocation' :	'',
-#     'device-datetime' : ISO_8601_time
+#     'client': 'FLIC_1',
+#     'x-api-key': 'zpPAxEmE5o3sTCdYqYM2A7yOstN8Nuhna6IDJbMQ',
+#     'authorization': 'Basic RkxJQ18xOkVQQ2hqc0dNTWdSdQ==',
+#     'territory': 'US',
+#     'api-version': 'v200',
+#     'geolocation': '30.6045;-96.3123',
+#     'device-datetime': ISO_8601_time
 # }
 
 #Base URL
@@ -132,7 +132,7 @@ def nearbyCinemas(queryDate):
         cinemaIDs.append(i["cinema_id"])
         cinemaNames.append(i["cinema_name"])
         cinemaDistances.append(int(i["distance"]))
-        cinemaLogos.append(i["logo_url"])
+        cinemaLogos.append('https://i2.wp.com/www.spainonafork.com/wp-content/uploads/2019/04/popcornHOR-11.png?fit=750%2C750&ssl=1')
         cinemaAddresses.append(i["address"])
         cinemaCities.append(i["city"])
         cinemaStates.append(i["state"])
@@ -245,9 +245,9 @@ def updateHeaders(lat, longi):
     location = lat + ";" + longi
     # # Normal Environment
     # headers = {
-    #     'client': 'DEZE',
-    #     'x-api-key': 'HJMxUp3T5NDjYbqajOrX1een3EC9npq7SQU0Nbq0',
-    #     'authorization': 'Basic REVaRTpKT2g3MnZIaVZUM2g=',
+    #     'client': 'FLIC_1',
+    #     'x-api-key': 'zpPAxEmE5o3sTCdYqYM2A7yOstN8Nuhna6IDJbMQ',
+    #     'authorization': 'Basic RkxJQ18xOkVQQ2hqc0dNTWdSdQ==',
     #     'territory': 'US',
     #     'api-version': 'v200',
     #     'geolocation': location,
