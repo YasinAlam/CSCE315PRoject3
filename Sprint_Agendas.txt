@@ -59,3 +59,30 @@ Planned Meetings
 Meeting 1: Monday, April 26th
 Meeting 2: Wednesday, April 28th
 Meeting 3: Saturday, April 30th
+
+Sprint 3
+Date: 26 April 2021
+Agenda:
+Discuss progress of GUI
+Plan out connecting backend and frontend in better manner
+Discuss goals met and final tasks
+Discuss better places to host website
+Time: 6 Minutes
+Meeting 2
+Date: 28 April 2021
+Agenda:
+Status update on code
+Discuss progress GUI
+Discuss host site and API keys
+Address tasks done
+Time: 5 Minutes
+Meeting 3
+ Date: 2 May 2021
+ Agenda:
+ Discuss ending of code
+ Discuss final host site
+ Address API necessities
+ Go over presentation style
+ Final thoughts
+ Time: 11 Minutes
+ 
